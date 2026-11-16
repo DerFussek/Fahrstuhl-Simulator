@@ -16,8 +16,8 @@ Fundstelle: https://www.dhbw.de/die-dhbw/dokumente (Rubrik Bachelorstudium, Absc
 | Muster für das Titelblatt (DOCX) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/Titelblatt_Muster.docx |
 | Anmeldeformular Projektarbeit / Studienarbeit / Bachelorarbeit (DOCX) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/03-2020_Anmeldeformular_Projektarbeit_Studienarbeit_Bachelorarbeit.docx |
 | Schematische Bewertung (XLSX) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/Bewertung_Projekt_Studien_Bachelor.xlsx |
-| Bearbeitungszeit für Bachelor- und Projektarbeiten, Technik (PDF) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Duale_Partner/Handreichung_Technik.pdf |
-| Informationsblatt Vertraulichkeit studentischer Arbeiten (PDF) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Qualitaetsmanagement/Infoblatt_Vertraulichkeit.pdf |
+| Handreichung Technik, 13.03.2020 (auf der Seite als "Bearbeitungszeit" beschriftet; enthält nur: Themen der Praxisprojekte I-III und der Bachelorarbeit sind betriebliche Themen und werden in der Arbeitszeit bearbeitet) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Duale_Partner/Handreichung_Technik.pdf |
+| Informationsblatt Vertraulichkeit studentischer Arbeiten, Stand Mai 2026 (PDF, mit Vertraulichkeitsbestätigung) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Qualitaetsmanagement/Infoblatt_Vertraulichkeit.pdf |
 | Rahmenpraxispläne ab 2017 der technischen Bachelor-Studiengänge (PDF) | https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/Praxisplaene_Technik_2017_2024.pdf |
 
 Hinweis: Die Dateien "Ablauf und Reflexion ... Teil A/B" und das Anmeldeformular tragen das Datum 03-2020. Die Datei `W_Ablauf-und-Reflexionsbericht-...-FakW-...` auf derselben Seite gehört zur Fakultät **Wirtschaft** und gilt für dich nicht. Ob Mannheim eine eigene, neuere Fassung über Moodle bereitstellt, ist offen (siehe Abschnitt 4).
