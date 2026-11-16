@@ -51,13 +51,25 @@ int InsertBetweenLimits(Target NewTarget, int lowerLimit, int upperLimit,
     return upperLimit;
 }
 
-void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gondelPosition, bool& TuerAufCmd) {
+
+void Funktion() {
     
+}
+
+void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gondelPosition, bool& TuerAufCmd) {
+
     //Wenn Liste Leer
     if(TargetList.empty()) {
+        //Ruf in der aktuellen Etage --> Tuer oeffnen, nicht in die Liste aufnehmen
+        if(newElement.level == gondelPosition) {
+            TuerAufCmd = true;
+            return;
+        }
         TargetList.push_back(newElement);
         return;
     }
+
+    if(TargetList.size() >= 10) return;
 
     //Wenn identischer Aufruf vorhanden --> Ignorieren
     for(Target curTarget : TargetList) {
@@ -68,10 +80,28 @@ void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gon
     //Marker erstellen
     int rWechsel1 = -1; 
     int rWechsel2 = -1;
-    Direction startDirection = TargetList[0].direction;
-    
+    Direction startDirection;
+    if(gondelPosition < TargetList[0].level) {
+        startDirection = Rauf;
+    } else if(gondelPosition > TargetList[0].level){
+        startDirection = Runter;
+    } else {
+        startDirection = TargetList[0].direction;
+    }
+
+    //Ruf in der aktuellen Etage in Fahrtrichtung --> Tuer oeffnen, nicht einsortieren
+    //(Ruf in Gegenrichtung wird normal einsortiert)
+    if(newElement.level == gondelPosition && newElement.direction == startDirection) {
+        TuerAufCmd = true;
+        return;
+    }
+
+    //Hat das erste Element einen Pfeil gegen die Fahrtrichtung, ist Abschnitt 1 leer
+    //(rWechsel1 bleibt dann -1 = "Abschnitt 1 endet vor Index 0")
+    bool abschnitt1Leer = (TargetList[0].direction != startDirection);
+
     //Erster Richtungswechsel
-    for(int i = 1; i < (int)TargetList.size(); i++) {
+    for(int i = 1; !abschnitt1Leer && i < (int)TargetList.size(); i++) {
         if(TargetList[i].direction != startDirection || (TargetList[i].direction == Rauf && TargetList[i-1].level > TargetList[i].level) 
             || (TargetList[i].direction == Runter && TargetList[i-1].level < TargetList[i].level)) {
             
@@ -80,8 +110,10 @@ void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gon
         }
     }
 
+    bool wechsel1 = (rWechsel1 != -1 || abschnitt1Leer);
+
     //Zweiter Richtungswechsel
-    if(rWechsel1 != -1) {
+    if(wechsel1) {
         for(int i = rWechsel1 + 1; i < (int)TargetList.size(); i++) {
             if(TargetList[i].direction == startDirection) {
                 rWechsel2 = i;
@@ -96,11 +128,11 @@ void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gon
         isReachable = true;
     }
     
-    if(rWechsel1 == -1 && rWechsel2 == -1) { //Keine Richtungswechsel
+    if(!wechsel1 && rWechsel2 == -1) { //Keine Richtungswechsel
         TargetList.push_back(newElement);
         size_t nTargets = TargetList.size();
         if(newElement.direction == startDirection && isReachable) SortBetweenLimits(0, nTargets-1, TargetList, startDirection);
-    } else if(rWechsel1 != -1 && rWechsel2 == -1) { // 1. Richtungswechsel
+    } else if(wechsel1 && rWechsel2 == -1) { // 1. Richtungswechsel
         if(newElement.direction == startDirection && isReachable) {
             InsertBetweenLimits(newElement, 0, rWechsel1, TargetList, startDirection);
         } else if(newElement.direction == startDirection && !isReachable) {
@@ -109,7 +141,7 @@ void AddTargetToList(Target newElement, std::vector<Target>& TargetList, int gon
             size_t nTargets = TargetList.size();
             InsertBetweenLimits(newElement, rWechsel1+1, nTargets-1, TargetList, !startDirection);
         }
-    } else if (rWechsel1 != -1 && rWechsel2 != -1) { // 2. Richtungswechsel
+    } else if (wechsel1 && rWechsel2 != -1) { // 2. Richtungswechsel
         size_t nTargets = TargetList.size();
         if(newElement.direction == startDirection && !isReachable) {
             InsertBetweenLimits(newElement, rWechsel2,  nTargets-1, TargetList, startDirection);
