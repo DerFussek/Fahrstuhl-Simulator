@@ -2,9 +2,9 @@
 
 // Richtwert: ca. 2 Seiten. Nur so viel Theorie, wie Kapitel 4 und 5 brauchen:
 // ein bis zwei Absaetze pro Unterkapitel. Hier stehen die meisten Quellenangaben.
-= Grundlagen und Stand der Technik <kap:grundlagen>
+= Grundlagen <kap:grundlagen>
 
-== Speicherprogrammierbare Steuerungen und IEC 61131-3
+== Speicherprogrammierbare Steuerungen nach IEC 61131-3
 #todo[
   Zyklische Abarbeitung (Eingänge lesen, Programm, Ausgänge schreiben), Tasks mit
   verschiedenen Zykluszeiten (hier Fast, Normal, Slow). Sprachen der Norm
@@ -19,7 +19,7 @@
   eintragen).
 ]
 
-== Aufzugssteuerungen
+== Sammelsteuerung von Aufzügen
 #todo[
   Einzelsteuerung vs. Sammelsteuerung, Richtungsprinzip (erst alle Rufe in
   Fahrtrichtung, dann umkehren), Sicherheitsfunktionen der Tür. Eventuell
