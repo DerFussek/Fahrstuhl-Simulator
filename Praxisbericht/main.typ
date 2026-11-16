@@ -49,3 +49,4 @@
 #include "anhang/a-st-code.typ"
 #include "anhang/b-cpp-prototyp.typ"
 #include "anhang/c-testprotokolle.typ"
+#include "anhang/d-skizzen.typ"

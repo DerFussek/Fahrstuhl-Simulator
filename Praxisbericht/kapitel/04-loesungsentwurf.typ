@@ -1,10 +1,10 @@
-#import "../vorlage.typ": todo, abbildung-folgt
+#import "../vorlage.typ": todo
 
-// Richtwert: ca. 4 Seiten. Das wichtigste Kapitel: warum die Steuerung so
+// Richtwert: ca. 3,5 Seiten. Das wichtigste Kapitel: warum die Steuerung so
 // gebaut ist. Mit dem Schreiben hier anfangen.
-= Lösungsentwurf und Bewertung <kap:loesungsentwurf>
+= Lösungsgenerierung und -bewertung <kap:loesungsentwurf>
 
-== Systemaufbau
+== Systemaufbau und Schnittstellen der Bausteine
 #todo[
   Die Bausteine und welche Signale zwischen ihnen laufen. Abbildung beschreiben:
   `TD_Gondel` sammelt die Rufe und gibt Zielstock, Rufliste und Tür-auf-Befehl an
@@ -23,6 +23,37 @@
   Als Zustandsdiagramm zeichnen, mit den Zuständen, die die Steuerung wirklich hat.
 ]
 
+== Lösungsvarianten für die Rufverwaltung <kap:varianten>
+#todo[
+  Die vier Ansätze aus der Entwurfsphase, je zwei bis drei Sätze:
+  - Einfügen mit Fallunterscheidung: Liste durchlaufen, Nachbarn vergleichen,
+    je nach Fall einfügen (erster Versuch direkt in Structured Text)
+  - Dummy-Eintrag in Gegenrichtung für nicht mehr erreichbare Ziele
+  - Drei getrennte Listen (auf dem Weg, Gegenrichtung, nicht mehr auf dem Weg)
+  - Eine Liste mit zwei Markern für die Richtungswechsel
+]
+
+== Bewertung und Auswahl
+#todo[
+  Einleitender Satz zu den Kriterien, dann @tab:varianten füllen und die Auswahl
+  in zwei bis drei Sätzen begründen.
+]
+
+#figure(
+  table(
+    columns: (1fr, auto, auto, auto, auto),
+    align: (left, center, center, center, center),
+    table.header(
+      [*Variante*], [*Korrektheit*], [*Übersicht-\ lichkeit*], [*Rechen-\ aufwand*], [*Umsetzbar-\ keit in CBM*],
+    ),
+    [Einfügen mit Fallunterscheidung], [], [], [], [],
+    [Dummy-Eintrag], [], [], [], [],
+    [Drei getrennte Listen], [], [], [], [],
+    [Eine Liste mit zwei Markern], [], [], [], [],
+  ),
+  caption: [Bewertung der Lösungsvarianten für die Rufverwaltung],
+) <tab:varianten>
+
 == Algorithmus der Zielliste <kap:zielliste>
 #todo[
   - Aufbau der Liste: bis zu drei Abschnitte (Fahrtrichtung vor der Kabine,
@@ -31,21 +62,5 @@
   - Einsortieren an einem Beispiel durchspielen: Kabine in Stock 2 aufwärts,
     nacheinander Innenrufe in 4, 1 und 3 -- die Liste nach jedem Schritt als
     kleine Tabelle
-  - Sonderfälle: doppelter Ruf, volle Liste, Ruf im aktuellen Stockwerk
-]
-
-== Entwicklung mit C++-Prototyp
-#todo[
-  Warum die Logik zuerst in C++ entstand (schnell testbar, ohne Controller) und
-  welche Konventionen die spätere Portierung leicht machten (Richtung als BOOL,
-  kein vorzeitiges RETURN).
-]
-
-== Lösungsvarianten und Bewertung
-#todo[
-  Höchstens eine halbe Seite. Nur Varianten, die du wirklich erwogen hast, z. B.:
-  - Zielliste mit Sortierung vs. ein einfaches Ruf-Bit pro Stockwerk und Richtung
-  - Logik erst in C++ entwickeln vs. direkt in Structured Text
-  - Control Modules vs. Function Blocks für die einzelnen Bausteine
-  Bewertung als Tabelle mit Kriterien wie Aufwand, Testbarkeit, Umsetzbarkeit in CBM.
+  - Sonderfälle: leere Liste, doppelter Ruf, volle Liste, Ruf im aktuellen Stockwerk
 ]

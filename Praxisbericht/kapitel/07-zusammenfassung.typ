@@ -5,13 +5,15 @@
 
 == Zusammenfassung
 #todo[
-  Welche Anforderungen aus @tab:anforderungen erfüllt sind, welche nicht; was die
-  Entwicklung mit C++-Prototyp gebracht hat.
+  Ergebnis: Steuerung läuft in der Simulation, Anforderungen aus
+  @tab:anforderungen erfüllt. Erkenntnisse zum Vorgehen: kleine Untergruppen
+  statt Diskussion zu sechst, Prototyp in einer vertrauten Sprache, gegenseitiges
+  Testen, Übertragung nach Structured Text erst mit geprüftem Algorithmus.
 ]
 
 == Ausblick
 #todo[
-  Offene Punkte und Erweiterungen, z. B. die noch offenen Stellen in
-  `AddTargetToList` und `TD_Gondel`, Notfallfunktionen, mehrere Aufzüge,
-  Test auf echter Hardware.
+  Nicht umgesetzt und mögliche Erweiterungen: Trendbilder, Alarme und Events,
+  Sonderbetrieb (Brand, Störung, Not-Halt), Kartenleser, Test auf echter Hardware,
+  mehrere Aufzüge.
 ]

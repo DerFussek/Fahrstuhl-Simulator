@@ -30,8 +30,8 @@ Das PDF landet als `Praxisbericht/main.pdf`.
 | `main.typ` | Titelblatt-Daten, Reihenfolge der Kapitel; `zeige-entwurf: false` blendet alle Platzhalter aus |
 | `vorlage.typ` | Format der Word-Vorlage: Calibri Light 12 pt, 1,5-zeilig, Blocksatz, Ränder, Seitenzahlen, Beschriftungen, Code mit Zeilennummern |
 | `vorspann/` | Erklärung (KI-Zusatz), Kurzzusammenfassung, Vorwort, Abkürzungen, Sperrvermerk (optional) |
-| `kapitel/` | Kapitel 1–7 mit Stichpunkten aus dem Gliederungsentwurf, dazu die KI-Anmerkung |
-| `anhang/` | A: ST-Code, B: C++-Prototyp, C: Testprotokolle |
+| `kapitel/` | Kapitel 1–7 mit Stichpunkten aus der Gliederung, dazu die KI-Anmerkung |
+| `anhang/` | A: ST-Code, B: C++-Prototyp und Testprogramm, C: Testprotokolle, D: Skizzen aus der Entwurfsphase |
 | `literatur.bib` | Quellen (BibTeX), im Text mit `@schluessel` zitieren |
 | `bilder/` | Screenshots und Abbildungen |
 

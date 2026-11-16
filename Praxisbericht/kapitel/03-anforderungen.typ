@@ -1,14 +1,33 @@
-#import "../vorlage.typ": todo
+#import "../vorlage.typ": todo, abbildung-folgt
 
-// Richtwert: ca. 1,5 Seiten. Die Vorlage teilt den Hauptteil in
+// Richtwert: ca. 2 Seiten. Die Vorlage teilt den Hauptteil in
 // Anforderungsdefinition, Anforderungsanalyse, Loesungsgenerierung,
 // Loesungsbewertung und Umsetzung; dieses Kapitel deckt die ersten beiden ab.
 = Anforderungsdefinition und -analyse <kap:anforderungen>
 
-== Anforderungsdefinition
+== Vorgehen bei der Anforderungsermittlung
 #todo[
-  Einleitender Satz: Woher kommen die Anforderungen (Betreuer, eigene Festlegung)?
-  Jede Anforderung hat eine Nummer, auf die sich die Testfälle in @kap:test beziehen.
+  Die Aufgabe war offen gestellt; die ersten drei bis vier Tage dienten dazu, die
+  Anforderungen festzulegen: Anlage am Whiteboard skizziert, Regeln der
+  Rufabarbeitung gesammelt, Abläufe als Diagramme gezeichnet (Fotos in @anh:skizzen).
+]
+
+== Aufbau des simulierten Aufzugs
+#todo[
+  Schacht mit sechs Stockwerken, Kabine, Kabinentür und sechs Schachttüren,
+  Endlagen und Lichtschranke, Außentaster auf/ab mit Beleuchtung, Bedienfeld in
+  der Kabine. Alles nur simuliert, keine echte Hardware.
+]
+
+#abbildung-folgt(
+  [Skizze des Aufzugs mit Sensoren, Aktoren und Bedienelementen],
+  [Aufbau des simulierten Aufzugs, eigene Darstellung],
+) <abb:aufzug>
+
+== Anforderungen an die Steuerung
+#todo[
+  Einleitender Satz. Jede Anforderung hat eine Nummer, auf die sich die Testfälle
+  in @kap:test beziehen.
 ]
 
 #figure(
@@ -29,9 +48,13 @@
   caption: [Anforderungen an die Aufzugssteuerung],
 ) <tab:anforderungen>
 
-== Anforderungsanalyse
+== Analyse der Anforderungen
 #todo[
-  Was folgt aus @tab:anforderungen für den Entwurf? Welche Anforderungen sind
-  sicherheitsrelevant (A6--A8)? Welche hängen zusammen (A3 und A5)? Welche Daten
-  braucht die Steuerung dafür (eine Zielliste aus Stockwerk und Richtung)?
+  - Regeln der Rufabarbeitung hinter A3: Mitnahme in Fahrtrichtung, keine Mitnahme
+    in Gegenrichtung, Richtung wird bis zum Umkehrpunkt zu Ende gefahren, der
+    Zeitpunkt des Tastendrucks entscheidet über die Reihenfolge
+  - Sicherheitsrelevant: A6 bis A8
+  - Folge für den Entwurf: eine Zielliste aus Stockwerk und Richtung
+  - Bewusst ausgeklammert: Sonderbetrieb (Brand, Störung), Kartenleser,
+    Trendbilder und Alarme
 ]

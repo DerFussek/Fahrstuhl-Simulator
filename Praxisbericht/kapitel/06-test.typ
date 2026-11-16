@@ -1,12 +1,19 @@
 #import "../vorlage.typ": todo
 
 // Richtwert: ca. 1,5 Seiten. Ausfuehrliche Protokolle mit Screenshots in Anhang C.
-= Test in der Simulation <kap:test>
+= Test und Ergebnisse <kap:test>
 
+== Test des Prototyps
 #todo[
-  Kurz beschreiben, wie getestet wurde (C++-Tests, Soft Controller, Visualisierung
-  „Fahrstuhl Schacht“). Die Spalte Ergebnis beim Testen füllen. Gefundene und
-  behobene Fehler kurz beschreiben.
+  Mehrere Testdurchgänge am C++-Prototyp, unter anderem mit dem interaktiven
+  Testprogramm (@anh:cpp); die anderen Untergruppen suchten gezielt nach Fehlern.
+  Gefundene und behobene Fehler kurz beschreiben.
+]
+
+== Test in der Simulation
+#todo[
+  Soft Controller und Visualisierung „Fahrstuhl Schacht“. Die Spalte Ergebnis in
+  @tab:testfaelle beim Testen füllen.
 ]
 
 #figure(
@@ -25,3 +32,8 @@
   ),
   caption: [Testfälle und Ergebnisse],
 ) <tab:testfaelle>
+
+== Bewertung der Ergebnisse
+#todo[
+  Welche Anforderungen aus @tab:anforderungen erfüllt sind und welche nicht.
+]

@@ -1,17 +1,28 @@
-#import "../vorlage.typ": todo, code-abbildung
+#import "../vorlage.typ": todo, code-abbildung, abbildung-folgt
 
 // Richtwert: ca. 3 Seiten. Nur zwei Bausteine ausfuehrlich (AddTargetToList,
 // DT_Door), je mit kurzem Code-Auszug; alle anderen in eine Tabelle.
 // Vollstaendiger Code steht in Anhang A.
-= Umsetzung in Control Builder M <kap:umsetzung>
+= Umsetzung <kap:umsetzung>
 
-== Projektstruktur
+== Vorgehen und Arbeitsteilung <kap:vorgehen>
 #todo[
-  Library `DT_FahrstuhlLib`, Application `TD_Appl`, Tasks Fast/Normal/Slow.
-  Screenshot des Projektbaums als Abbildung.
+  - Erster Versuch: Einsortieren direkt in Structured Text in der ganzen Gruppe;
+    nach rund einer Woche noch keine funktionierende Lösung
+  - Wechsel des Vorgehens auf Anregung des Betreuers: drei Untergruppen, Logik in
+    der jeweils vertrauten Sprache, gegenseitiges Testen, Übertragung des besten
+    Algorithmus nach Structured Text mit einem KI-Werkzeug (@kap:ki)
+  - Danach Integration und Visualisierung wieder in der ganzen Gruppe
 ]
 
-== Portierung von C++ nach Structured Text
+== C++-Prototyp der Zielliste
+#todo[
+  Funktionen `SortBetweenLimits` und `AddTargetToList` (Code in @anh:cpp). Welche
+  Konventionen die spätere Übertragung leicht machten (Richtung als BOOL, kein
+  vorzeitiges RETURN).
+]
+
+== Übertragung nach Structured Text
 #todo[
   Die Unterschiede, die aufgehalten haben:
   - `std::vector` → `ArrayObject` mit `GetArray`/`PutArray`/`InsertArray`, weil CBM
@@ -21,10 +32,13 @@
   - Datentypen und Variablen in Tabellen statt als Text
 ]
 
-== Funktionsbaustein AddTargetToList
+== Bausteine in Control Builder M
 #todo[
-  Aufgabe, Ein- und Ausgänge, dann den interessanten Ausschnitt zeigen und im Text
-  erklären. Zeilenbereich unten anpassen (zeilen: (von, bis)).
+  Projektstruktur in ein bis zwei Sätzen (Library `DT_FahrstuhlLib`, Application
+  `TD_Appl`, Tasks Fast/Normal/Slow). Dann `AddTargetToList` (Aufgabe, Ein- und
+  Ausgänge, interessanter Ausschnitt) und `DT_Door` (Selbsthaltung, Vorrang von
+  Lichtschranke und Tür-auf-Taste, automatisches Schließen nach 5~s mit dem
+  CBM-Datentyp `Timer`). Zeilenbereich unten anpassen (zeilen: (von, bis)).
 ]
 
 // Beispiel: Ausschnitt aus der Datei im Repo. Zeilen anpassen.
@@ -34,13 +48,6 @@
   zeilen: (1, 25),
 ) <abb:addtarget>
 
-== Control Module DT_Door
-#todo[
-  Öffnen und Schließen mit Selbsthaltung, Vorrang von Lichtschranke und Tür-auf-Taste,
-  automatisches Schließen nach 5~s mit dem CBM-Datentyp `Timer`. Code-Ausschnitt wie oben.
-]
-
-== Übersicht der weiteren Bausteine
 #figure(
   table(
     columns: (auto, 1fr),
@@ -55,3 +62,15 @@
   ),
   caption: [Weitere Bausteine der Steuerung],
 ) <tab:bausteine>
+
+== Visualisierung
+#todo[
+  Grafikbild „Fahrstuhl Schacht“: Schacht mit Stockwerken 0 bis 5, Außentaster,
+  Bedienfeld der Kabine, Tür und Lichtschranke; dynamische Anzeige von
+  Gondelposition, Türen und LEDs.
+]
+
+#abbildung-folgt(
+  [Screenshot des Grafikbilds „Fahrstuhl Schacht“],
+  [Visualisierung der Aufzugssteuerung],
+) <abb:visualisierung>

@@ -3,23 +3,26 @@
 // Richtwert: ca. 1 Seite. Zuletzt schreiben.
 = Einleitung <kap:einleitung>
 
-== Motivation
+== Motivation und Ausgangslage
 #todo[
   Warum eine Aufzugssteuerung als Übungsprojekt? Rufe sammeln, Richtung halten,
   Tür sichern -- viele typische SPS-Aufgaben in einem überschaubaren System.
 ]
 
-== Aufgabenstellung
+== Aufgabenstellung und Zielsetzung
 #todo[
-  Steuerung für sechs Stockwerke (0 bis 5) auf dem ABB AC 800M mit Control Builder M,
-  getestet in der Visualisierung „Fahrstuhl Schacht“. Wer hat die Aufgabe gestellt,
-  welche Vorgaben gab es?
+  Offene Aufgabe des Betreuers: eine Fahrstuhlsimulation mit AC~800M-Controllern
+  bauen; die Anforderungen legt die Gruppe selbst fest. Ziel: eine in der
+  Simulation lauffähige Steuerung für sechs Stockwerke (0 bis 5).
 ]
 
-== Ziel der Arbeit
+== Projektorganisation und eigener Beitrag
 #todo[
-  Eine lauffähige Steuerung in Structured Text, deren Ziellisten-Logik vorher in C++
-  entwickelt und geprüft wurde.
+  - Sechs Personen, drei Wochen (26.10. bis 13.11.2026)
+  - Für den Algorithmus der Zielliste zeitweise drei Untergruppen, danach wieder
+    eine Gruppe (Einzelheiten in @kap:vorgehen)
+  - Eigener Beitrag: Algorithmus der Zielliste als C++-Prototyp und dessen
+    Übertragung nach Structured Text. Klar abgrenzen, was aus der Gruppe stammt.
 ]
 
 == Aufbau der Arbeit
