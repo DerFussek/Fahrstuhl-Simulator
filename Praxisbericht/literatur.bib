@@ -1,0 +1,32 @@
+% Literatur im BibTeX-Format; Typst setzt sie im Stil IEEE.
+% Im Text zitieren mit @schluessel, z. B. @iec61131-3.
+% Es erscheinen nur Quellen, die im Text zitiert werden.
+% Citavi und Zotero koennen BibTeX exportieren.
+%
+% Hinweise fuer Typst (getestet mit 0.15.1):
+% - Normen und Handbuecher als @manual mit publisher, sonst fehlt der Herausgeber.
+% - Norm- und Dokumentnummern in den Titel schreiben: im Feld number wird
+%   "61131-3" sonst zu "61131–3" (Gedankenstrich) und edition wird nicht gedruckt.
+%
+% TODO vor der Abgabe: Angaben an der Quelle pruefen (Ausgabe, Jahr, ggf. deutsche
+% Fassung DIN EN 61131-3 statt IEC 61131-3 zitieren).
+
+@manual{iec61131-3,
+  title     = {IEC 61131-3: Programmable controllers -- Part 3: Programming languages},
+  publisher = {International Electrotechnical Commission},
+  year      = {2013},
+}
+
+@manual{din-en-81-20,
+  title     = {DIN EN 81-20: Sicherheitsregeln für die Konstruktion und den Einbau von Aufzügen -- Teil 20: Personen- und Lastenaufzüge},
+  publisher = {DIN Deutsches Institut für Normung},
+  year      = {2020},
+}
+
+% TODO: ABB-Handbuecher zu Control Builder M und AC 800M eintragen
+% (Titel, Dokumentnummer, Version und Jahr aus dem PDF uebernehmen), z. B.:
+% @manual{abb-cbm,
+%   title     = {<Dokumentnummer>: <Titel des Handbuchs>, Version <x>},
+%   publisher = {ABB},
+%   year      = {<Jahr>},
+% }
