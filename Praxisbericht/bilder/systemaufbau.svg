@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="660" viewBox="0 0 1280 660" font-family="Calibri, Carlito, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" font-family="Calibri, Carlito, Arial, sans-serif">
   <title>Systemaufbau der Aufzugssteuerung</title>
   <defs>
     <marker id="pfeil" orient="auto" markerUnits="strokeWidth" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
       <path d="M0 0 L4 2 L0 4 Z" fill="#333333" stroke="none"/>
     </marker>
   </defs>
-  <rect width="1280" height="660" fill="#ffffff"/>
+  <rect width="1280" height="720" fill="#ffffff"/>
 
   <!-- TD_Gondel als Rahmen -->
   <rect x="415" y="41" width="294" height="550" rx="10" fill="#efefef" stroke="#222222" stroke-width="2"/>
@@ -15,28 +15,36 @@
     <line x1="270" y1="220" x2="409" y2="220" marker-end="url(#pfeil)"/>
     <line x1="414" y1="432" x2="275" y2="432" marker-end="url(#pfeil)"/>
     <line x1="155" y1="384" x2="155" y2="293" marker-end="url(#pfeil)"/>
+    <line x1="434" y1="560" x2="275" y2="560" marker-end="url(#pfeil)"/>
     <line x1="710" y1="92" x2="957" y2="92" marker-end="url(#pfeil)"/>
     <line x1="962" y1="136" x2="715" y2="136" marker-end="url(#pfeil)"/>
     <line x1="710" y1="180" x2="805" y2="180" marker-end="url(#pfeil)"/>
     <line x1="866" y1="180" x2="957" y2="180" marker-end="url(#pfeil)"/>
-    <line x1="1170" y1="224" x2="1170" y2="315" marker-end="url(#pfeil)"/>
-    <line x1="962" y1="360" x2="838" y2="360"/>
-    <line x1="838" y1="360" x2="838" y2="213" marker-end="url(#pfeil)"/>
-    <line x1="710" y1="400" x2="957" y2="400" marker-end="url(#pfeil)"/>
-    <line x1="710" y1="532" x2="957" y2="532" marker-end="url(#pfeil)"/>
+    <line x1="1050" y1="224" x2="1050" y2="315" marker-end="url(#pfeil)"/>
+    <line x1="838" y1="320" x2="838" y2="213" marker-end="url(#pfeil)"/>
+    <line x1="710" y1="400" x2="815" y2="400" marker-end="url(#pfeil)"/>
+    <line x1="1238" y1="190" x2="1262" y2="190"/>
+    <line x1="1262" y1="190" x2="1262" y2="590"/>
+    <line x1="1262" y1="590" x2="1243" y2="590" marker-end="url(#pfeil)"/>
+    <line x1="880" y1="539" x2="880" y2="445" marker-end="url(#pfeil)"/>
+    <line x1="920" y1="440" x2="920" y2="534" marker-end="url(#pfeil)"/>
+    <line x1="1100" y1="440" x2="1100" y2="534" marker-end="url(#pfeil)"/>
+    <line x1="1140" y1="539" x2="1140" y2="445" marker-end="url(#pfeil)"/>
   </g>
 
   <!-- Bausteine -->
   <g stroke="#222222" stroke-width="2">
     <rect x="41" y="153" width="228" height="134" rx="6" fill="#ffffff" stroke-dasharray="2 4" stroke-linecap="round"/>
     <rect x="41" y="385" width="228" height="94" rx="6" fill="#ffffff"/>
+    <rect x="41" y="521" width="228" height="94" rx="6" fill="#ffffff"/>
     <rect x="435" y="169" width="254" height="102" rx="6" fill="#ffffff" stroke-dasharray="8 5"/>
     <rect x="435" y="321" width="254" height="86" rx="6" fill="#ffffff" stroke-dasharray="8 5"/>
     <rect x="434.5" y="484.5" width="255" height="95" rx="6" fill="#d4d4d4" stroke="#8c8c8c" stroke-width="1"/>
     <rect x="811" y="153" width="54" height="54" rx="4" fill="#ffffff"/>
     <rect x="963" y="49" width="274" height="174" rx="6" fill="#ffffff"/>
-    <rect x="963" y="321" width="274" height="118" rx="6" fill="#ffffff"/>
-    <rect x="963" y="485" width="274" height="94" rx="6" fill="#ffffff"/>
+    <rect x="821" y="321" width="416" height="118" rx="6" fill="#ffffff"/>
+    <rect x="821" y="541" width="188" height="98" rx="6" fill="#ffffff"/>
+    <rect x="1031" y="541" width="206" height="98" rx="6" fill="#ffffff"/>
   </g>
 
   <!-- Beschriftung der Bausteine -->
@@ -48,6 +56,9 @@
 
     <text x="155" y="425" font-size="22" font-weight="bold" fill="#111111">TD_ResetTaster</text>
     <text x="155" y="449">auf Befehl von TD_Gondel</text>
+
+    <text x="155" y="561" font-size="22" font-weight="bold" fill="#111111">TD_LedSteuerung</text>
+    <text x="155" y="585">zeigt offene Rufe an</text>
 
     <text x="562" y="78" font-size="24" font-weight="bold" fill="#111111">TD_Gondel</text>
     <text x="562" y="103">sammelt die Rufe und</text>
@@ -70,12 +81,17 @@
     <text x="1100" y="141">fährt die Gondel</text>
     <text x="1100" y="165">zum Zielstock</text>
 
-    <text x="1100" y="361" font-size="22" font-weight="bold" fill="#111111">DT_Door</text>
-    <text x="1100" y="385">öffnet/schließt die Tür,</text>
-    <text x="1100" y="409">gibt die Fahrt frei</text>
+    <text x="1029" y="361" font-size="22" font-weight="bold" fill="#111111">DT_Door</text>
+    <text x="1029" y="385">öffnet/schließt die Türen,</text>
+    <text x="1029" y="409">gibt die Fahrt frei</text>
 
-    <text x="1100" y="525" font-size="22" font-weight="bold" fill="#111111">TD_LedSteuerung</text>
-    <text x="1100" y="549">zeigt offene Rufe an</text>
+    <text x="915" y="571" font-size="22" font-weight="bold" fill="#111111">TD_Door_Pos</text>
+    <text x="915" y="595">bewegt die</text>
+    <text x="915" y="619">Kabinentür</text>
+
+    <text x="1134" y="571" font-size="22" font-weight="bold" fill="#111111">TD_Shaftdoor_Pos</text>
+    <text x="1134" y="595">bewegt die Schacht-</text>
+    <text x="1134" y="619">tür im aktuellen Stock</text>
   </g>
 
   <!-- Signalnamen an den Pfeilen -->
@@ -83,33 +99,38 @@
     <g text-anchor="middle">
       <text x="342" y="206">Rufe</text>
       <text x="342" y="418">ResetTaster</text>
+      <text x="342" y="524">TargetList,</text>
+      <text x="342" y="548">TargetCount</text>
       <text x="836" y="78">ZielStock</text>
       <text x="836" y="122">GondelPos, Done</text>
       <text x="760" y="166">HatZiel</text>
       <text x="914" y="166">Enable</text>
-      <text x="774" y="386">TuerAufCMD</text>
-      <text x="836" y="518">TargetList, TargetCount</text>
+      <text x="762" y="386">TuerAufCMD</text>
     </g>
     <text x="167" y="330">setzt Taster</text>
     <text x="167" y="354">zurück</text>
-    <text x="850" y="290">EnableGondel</text>
+    <text x="850" y="276">EnableGondel</text>
+    <text x="932" y="497">Auf/Zu</text>
+    <text x="1152" y="497">Endlagen</text>
     <g text-anchor="end">
-      <text x="1158" y="266">Done,</text>
-      <text x="1158" y="290">GondelPosExpo</text>
+      <text x="1038" y="276">Done</text>
+      <text x="1252" y="276">GondelPosExpo</text>
+      <text x="868" y="497">Endlagen</text>
+      <text x="1088" y="497">Auf/Zu</text>
     </g>
   </g>
 
   <!-- Legende -->
   <g stroke="#222222" stroke-width="2" fill="#ffffff">
-    <rect x="41" y="617" width="38" height="22" rx="4"/>
-    <rect x="291" y="617" width="38" height="22" rx="4" stroke-dasharray="8 5"/>
-    <rect x="540.5" y="616.5" width="39" height="23" rx="4" fill="#d4d4d4" stroke="#8c8c8c" stroke-width="1"/>
-    <rect x="741" y="617" width="38" height="22" rx="4" stroke-dasharray="2 4" stroke-linecap="round"/>
+    <rect x="41" y="677" width="38" height="22" rx="4"/>
+    <rect x="291" y="677" width="38" height="22" rx="4" stroke-dasharray="8 5"/>
+    <rect x="540.5" y="676.5" width="39" height="23" rx="4" fill="#d4d4d4" stroke="#8c8c8c" stroke-width="1"/>
+    <rect x="741" y="677" width="38" height="22" rx="4" stroke-dasharray="2 4" stroke-linecap="round"/>
   </g>
   <g font-size="18" fill="#222222">
-    <text x="92" y="634">Control Module</text>
-    <text x="342" y="634">Function Block</text>
-    <text x="592" y="634">Daten</text>
-    <text x="792" y="634">Bedienfeld (Visualisierung)</text>
+    <text x="92" y="694">Control Module</text>
+    <text x="342" y="694">Function Block</text>
+    <text x="592" y="694">Daten</text>
+    <text x="792" y="694">Bedienfeld (Visualisierung)</text>
   </g>
 </svg>

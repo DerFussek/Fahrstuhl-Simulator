@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1170" viewBox="0 0 1280 1170" font-family="Calibri, Carlito, Arial, sans-serif" fill="#333333">
+  <title>Ablauf vom Ruf bis zur Fahrfreigabe</title>
+  <defs>
+    <marker id="pfeil" orient="auto" markerUnits="strokeWidth" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
+      <path d="M0 0 L4 2 L0 4 Z" fill="#333333" stroke="none"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="1170" fill="#ffffff"/>
+  <rect x="41" y="25" width="618" height="42" rx="5" fill="#cfe1f5" stroke="#1f5fa8" stroke-width="2"/>
+  <text x="350" y="51" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">TD_Gondel mit AddTargetToList</tspan></text>
+  <rect x="701" y="25" width="538" height="42" rx="5" fill="#ffe1bd" stroke="#c26a00" stroke-width="2"/>
+  <text x="970" y="51" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">DT_Door</tspan></text>
+  <line x1="680" y1="24" x2="680" y2="844" stroke="#8c8c8c" stroke-width="2" stroke-dasharray="8 5"/>
+  <circle cx="260" cy="104" r="10" fill="#222222"/>
+  <path transform="translate(256 114)" d="M 4 0 L 4 29" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(256 248)" d="M 4 0 L 4 31" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(410 342)" d="M 0 4 L 55 4" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(256 408)" d="M 4 0 L 4 31" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(410 502)" d="M 0 4 L 55 4" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(256 568)" d="M 4 0 L 4 31" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(256 704)" d="M 4 0 L 4 31" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(256 828)" d="M 4 0 L 4 39" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <circle cx="970" cy="104" r="10" fill="#222222"/>
+  <path transform="translate(966 114)" d="M 4 0 L 4 29" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(966 272)" d="M 4 0 L 4 47" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(966 424)" d="M 4 0 L 4 87" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(966 604)" d="M 4 0 L 4 131" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(1120 206)" d="M 0 4 L 80 4" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path transform="translate(1196 210)" d="M 4 0 L 4 574" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path transform="translate(1121 780)" d="M 79 4 L 4 4" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <path transform="translate(966 828)" d="M 4 0 L 4 39" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <rect x="160" y="872" width="910" height="8" rx="2" fill="#222222"/>
+  <path transform="translate(611 880)" d="M 4 0 L 4 31" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#pfeil)"/>
+  <rect x="111" y="149" width="298" height="98" rx="27" fill="#e3eefa" stroke="#1f5fa8" stroke-width="2"/>
+  <text x="260" y="179" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Neuer Ruf</tspan></text>
+  <text x="260" y="203" text-anchor="middle" font-size="18"><tspan fill="#333333">Taster gedrückt, TD_Gondel</tspan></text>
+  <text x="260" y="227" text-anchor="middle" font-size="18"><tspan fill="#333333">startet AddTargetToList</tspan></text>
+  <polygon transform="translate(110 284)" points="150,1 299,62 150,123 1,62" fill="#e3eefa" stroke="#1f5fa8" stroke-width="2" stroke-linejoin="round"/>
+  <text x="260" y="339" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">Liste voll oder</tspan></text>
+  <text x="260" y="363" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">Ruf schon da?</tspan></text>
+  <rect x="471" y="315" width="188" height="62" rx="27" fill="#f0f0f0" stroke="#7a7a7a" stroke-width="2"/>
+  <text x="565" y="351" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Ruf ignoriert</tspan></text>
+  <polygon transform="translate(110 444)" points="150,1 299,62 150,123 1,62" fill="#e3eefa" stroke="#1f5fa8" stroke-width="2" stroke-linejoin="round"/>
+  <text x="260" y="499" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">Ruf im aktuellen</tspan></text>
+  <text x="260" y="523" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">Stock?¹</tspan></text>
+  <rect x="471" y="457" width="188" height="98" rx="27" fill="#fff0dc" stroke="#c26a00" stroke-width="2"/>
+  <text x="565" y="487" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Tür öffnen</tspan></text>
+  <text x="565" y="511" text-anchor="middle" font-size="18"><tspan fill="#333333">TuerAufCmd,</tspan></text>
+  <text x="565" y="535" text-anchor="middle" font-size="18"><tspan fill="#333333">nicht einsortiert</tspan></text>
+  <rect x="111" y="605" width="298" height="98" rx="27" fill="#e3eefa" stroke="#1f5fa8" stroke-width="2"/>
+  <text x="260" y="635" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Einsortieren</tspan></text>
+  <text x="260" y="659" text-anchor="middle" font-size="18"><tspan fill="#333333">nach Fahrtrichtung</tspan></text>
+  <text x="260" y="683" text-anchor="middle" font-size="18"><tspan fill="#333333">in die Zielliste</tspan></text>
+  <rect x="111" y="741" width="298" height="86" rx="27" fill="#e3eefa" stroke="#1f5fa8" stroke-width="2"/>
+  <text x="260" y="777" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">HatZiel = 1</tspan></text>
+  <text x="260" y="801" text-anchor="middle" font-size="18"><tspan fill="#333333">ZielStock = erstes Ziel</tspan></text>
+  <polygon transform="translate(820 148)" points="150,1 299,62 150,123 1,62" fill="#fff0dc" stroke="#c26a00" stroke-width="2" stroke-linejoin="round"/>
+  <text x="970" y="203" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">Tür schon zu?</tspan></text>
+  <text x="970" y="227" text-anchor="middle" font-size="18"><tspan font-weight="bold" fill="#111111">(EndlageZu)</tspan></text>
+  <rect x="821" y="325" width="298" height="98" rx="27" fill="#fff0dc" stroke="#c26a00" stroke-width="2"/>
+  <text x="970" y="355" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Tür offen</tspan></text>
+  <text x="970" y="379" text-anchor="middle" font-size="18"><tspan fill="#333333">Timer 5 s läuft, steht bei</tspan></text>
+  <text x="970" y="403" text-anchor="middle" font-size="18"><tspan fill="#333333">Lichtschranke oder Taster</tspan></text>
+  <rect x="821" y="517" width="298" height="86" rx="27" fill="#fff0dc" stroke="#c26a00" stroke-width="2"/>
+  <text x="970" y="553" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Tür schließt</tspan></text>
+  <text x="970" y="577" text-anchor="middle" font-size="18"><tspan fill="#333333">Schliessen = 1</tspan></text>
+  <rect x="821" y="741" width="298" height="86" rx="27" fill="#fff0dc" stroke="#c26a00" stroke-width="2"/>
+  <text x="970" y="777" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">EnableGondel = 1</tspan></text>
+  <text x="970" y="801" text-anchor="middle" font-size="18"><tspan fill="#333333">EndlageZu und nicht Oeffnen</tspan></text>
+  <rect x="416" y="917" width="398" height="86" rx="27" fill="#dcf0de" stroke="#3d8b47" stroke-width="2"/>
+  <text x="615" y="953" text-anchor="middle" font-size="22"><tspan font-weight="bold" fill="#111111">Fahrt beginnt</tspan></text>
+  <text x="615" y="977" text-anchor="middle" font-size="18"><tspan fill="#333333">Enable = HatZiel und EnableGondel</tspan></text>
+  <text x="440" y="335" text-anchor="middle" font-size="19"><tspan fill="#222222">ja</tspan></text>
+  <text x="274" y="430" text-anchor="start" font-size="19"><tspan fill="#222222">nein</tspan></text>
+  <text x="440" y="495" text-anchor="middle" font-size="19"><tspan fill="#222222">ja</tspan></text>
+  <text x="274" y="590" text-anchor="start" font-size="19"><tspan fill="#222222">nein</tspan></text>
+  <text x="1160" y="197" text-anchor="middle" font-size="19"><tspan fill="#222222">ja</tspan></text>
+  <text x="984" y="302" text-anchor="start" font-size="19"><tspan fill="#222222">nein</tspan></text>
+  <text x="984" y="463" text-anchor="start" font-size="19"><tspan fill="#222222">nach 5 s oder</tspan></text>
+  <text x="984" y="487" text-anchor="start" font-size="19"><tspan fill="#222222">Tür-zu-Taster</tspan></text>
+  <text x="984" y="677" text-anchor="start" font-size="19"><tspan fill="#222222">EndlageZu</tspan></text>
+  <rect x="61" y="1033" width="1158" height="110" rx="5" fill="#efefef" stroke="#222222" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="76" y="1069" text-anchor="start" font-size="18"><tspan fill="#222222">¹ Ist die Liste nicht leer, gilt das nur für einen Ruf in Fahrtrichtung. Ein Ruf in Gegenrichtung wird einsortiert.</tspan></text>
+  <text x="76" y="1093" text-anchor="start" font-size="18"><tspan font-weight="bold" fill="#111111">Tür zu:</tspan><tspan fill="#222222"> TuerZuRequest ist in TD_Appl fest auf false. Ein neuer Ruf schließt die Tür also nicht früher; sie schließt</tspan></text>
+  <text x="76" y="1117" text-anchor="start" font-size="18"><tspan fill="#222222">nach 5 s oder mit dem Tür-zu-Taster. Lichtschranke und Tür-auf-Taster öffnen sie wieder (siehe Zustandsdiagramm).</tspan></text>
+</svg>
