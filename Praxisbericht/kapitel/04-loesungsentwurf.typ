@@ -12,10 +12,9 @@
   Signalnamen vorher mit den Diagrammen in `TD_Appl` abgleichen.
 ]
 
-#abbildung-folgt(
-  [Systemaufbau mit TD_Gondel, AddTargetToList, TD_RemoveAtIndex, TD_MotorController, DT_Door, TD_LedSteuerung, TD_ResetTaster (Vorlage im Gliederungsentwurf); in Graustufen lesbar],
-  [Systemaufbau der Aufzugssteuerung, eigene Darstellung],
-  hoehe: 7cm,
+#figure(
+  image("../bilder/systemaufbau.svg", width: 100%),
+  caption: [Systemaufbau der Aufzugssteuerung, eigene Darstellung],
 ) <abb:systemaufbau>
 
 == Ablauf einer Fahrt
