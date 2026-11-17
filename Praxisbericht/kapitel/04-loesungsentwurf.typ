@@ -84,61 +84,45 @@ Rufe in Fahrtrichtung wurden abgearbeitet, hält die Gondel auch für Rufe in Ge
 sind keine Rufe gespeichert, bleibt die Gondel stehen. Der beschriebene Ablauf wird auch durch die drei Flussdiagramme im @anh:skizzen
 veranschaulicht.
 
-*II. Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
-Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am zu
-diesem Zeitpunkt höchsten Ziel ein Umkehrpunkt gesetzt. Dort wechselt die Gondel
-die Richtung und fährt nicht mehr höher, auch wenn danach noch Rufe weiter oben
-in Fahrtrichtung eingehen; diese werden erst bei der nächsten Aufwärtsfahrt
-bedient. So soll etwa in einem Gebäude mit 100 Stockwerken verhindert werden,
-dass die Gondel erst ganz hinauf- und dann ganz hinunterfährt, während Fahrgäste
-in Gegenrichtung lange warten.
+*II. Feste Umkehrpunkte.* \ 
+Der Zweite Ansatzt begrenzt, wie weit die Gondel in eine Richtung fahren kann. Gibt es zum Beispiel, während
+einer Aufwärtsfahrt ein Ruf nach unten, wird am höchsten Ziel ein Umkehrpunkt gesetzt. Sobald die Gondel diesen
+Umkehrpunkt erreicht hat fährt diese nicht mehr häher, auch wenn danach noch Rufe weiter oben in Fahrtrichtung eingehen.
+Diese Rufe werden erst bei der nächsten Fahrt nach oben bearbeitet. Das gleiche Prinzip gilt auch für Abwärtsfahrten.
+So wird in einem Gebäude mit beispielsweise 100 Etagen verhindert, dass die Gondel erst ganz hinauf und dann ganz hinunter fährt
+und so Fahrgäste mit Rufen in Gegenrichtung lange warten müssen.
 
-*III. Einsortieren in eine sortierte Liste.* \ Im dritten Ansatz, der am Ende
-umgesetzt wurde, wird jeder neue Ruf direkt an der passenden Stelle in die
-bestehende Zielliste eingefügt. Da die Liste nur durch dieses Einsortieren
-aufgebaut wird und beim Abarbeiten immer nur das erste Ziel entfällt, wird
-angenommen, dass sie stets richtig sortiert ist. Die übrigen Ziele müssen deshalb
-nicht neu geordnet werden. Die erste Umsetzung direkt in Structured Text
-verglich dazu den neuen Ruf mit den benachbarten Einträgen und scheiterte an
-Zielen hinter einem Richtungswechsel. Die endgültige Lösung aus dem C++-Prototyp
-teilt die Liste deshalb mit zwei Markern in bis zu drei Abschnitte und sortiert
-den Ruf nur in den passenden Abschnitt ein (@kap:zielliste).
+*III. Einsortieren in eine sortierte Liste.* \ 
+Im dritten Ansatz, der auch umgesetzt wurde, wird jeder neue Ruf an die passende Stelle in eine bereits existierende Zielliste einsortiert.
+Da die Liste nur durch Einsortieren neuer Rufe entsteht und aufgebaut wird, nehmen wir an, dass diese immer richtig sortiert ist.
+Die bestehenden Ziele in der Liste müssen also nicht neu sortiert werden. Um die neuen Rufe in die Liste einzusortieren, wird
+diese in drei Abschnitte mittels zwei Marken, die die Richtungswechsel markieren, aufgeteilt und die Rufe werden entsprechend in den passenden
+Abschnitt einsortiert (@kap:zielliste).
 
-*IV. Liste bei jedem Ruf neu sortieren.* \ Der vierte Ansatz entstand erst danach,
-aus der Frage, was passiert, wenn die Zielliste doch einmal unsortiert ist. Dazu
-wird bei jedem neuen Ruf eine neue Liste aufgebaut, in die alle Ziele der alten
-Liste und der neue Ruf nacheinander nach dem Richtungsprinzip einsortiert werden.
-Anschließend ersetzt sie die alte Liste. Die Reihenfolge hängt damit nur von der
-aktuellen Position und Fahrtrichtung der Gondel ab und nicht davon, wie die alte
-Liste aussah.
+
+*IV. Liste bei jedem Ruf neu sortieren.* \ 
+Der vierte Ansatzt enstand nach Ansatz 3 und aus der Frage, was passiert, wenn die Zielliste doch einmal unsortiert ist.
+Dazu wird bei jedem neuen Ruf eine neue Liste aufgebaut, in die alle Ziele der alten Liste und der neue Ruf nacheinander
+nach dem Richtungsprinzip (A3, @tab:anforderungen) einsortiert werden. Danach ersetzt diese die alte Liste. Die Reihenfolge der Ziele hängt so nur 
+von der aktuellen Gondelposition und deren Fahrtrichtung ab und berücksichtigt nicht mehr, wie die alte Liste ausgesehen hat.
+
 
 == Bewertung und Auswahl
+Die Ansätze wurden danach bewertet, ob diese das Richtungsprinzip (A3, @tab:anforderungen) erfüllen,
+wie flüssig die Gondel damit fährt, wie komplet die Umsetzung ist und wie viel Rechenaufwand pro Ruf benötigt wird
+um diesen in die Liste einzusortieren. @tab:varianten veranschaulicht die Bewertung und fasst diese zusammen.
 
-Die Ansätze wurden danach bewertet, ob sie das Richtungsprinzip (A3) erfüllen,
-wie gleichmäßig die Gondel damit fährt, wie komplex die Umsetzung ist und wie
-viel die Steuerung bei jedem Ruf rechnen muss. @tab:varianten fasst die Bewertung
-zusammen.
+Den Rufspeicher ohne Zielliste verwarf unsere Gruppe, da wir vermuteten, dass die Gondel
+dadurch ruckartig fährt, weil diese bei jedem Stockwerk anhalten müsste, um über eine Weiterfahrt zu entscheiden.
+Den Ansatzt mit Umkehrpunkten verwarfen wir auch, da diese für eine Simulation mit sechs Stockwerken keinen größeren Nutzen bringt und 
+die Komplexität nochmal deutlich erhöhen würde.\
+Die vollständige Neusortierung der Liste würde zwar auch eine falsch bzw. unsortierte Liste wieder ordnen, da die Zielliste beim
+Einsortieren aber von Anfang an sortiert wird und beim entfernen eines Zieles nur die erste Stelle gelöscht wird, kann eine unsortierte Liste gar nicht
+erst entstehen. Damit bedeutet dieser Ansatzt nur zusätzlichen Rechenaufwand.
 
-Den Rufspeicher ohne Zielliste verwarf die Gruppe, weil sie vermutete, dass die
-Gondel damit ruckartig fährt: Sie müsste an jedem Stockwerk anhalten und prüfen,
-ob sie weiterfahren soll. Feste Umkehrpunkte lohnen sich vor allem in hohen
-Gebäuden. In der Simulation mit sechs Stockwerken bringen sie kaum einen Vorteil,
-machen die Steuerung aber deutlich komplexer. Das vollständige Neusortieren
-würde zwar auch eine unsortierte Liste wieder ordnen. Da die Zielliste beim
-Einsortieren aber von Anfang an sortiert aufgebaut wird und beim Abarbeiten nur
-das erste Ziel entfällt, kann eine unsortierte Liste gar nicht entstehen. Alle
-Ziele bei jedem Tastendruck neu zu sortieren, wäre damit nur zusätzlicher
-Rechenaufwand.
+Deshalb fiel die Wahl auf das Einsortieren in eine sortierte Liste. Es erfüllt alle Anforderungen in @tab:anforderungen und benötigt dabei nur geringen
+Rechenaufwand. Zudem war dieser Ansatz bereits teilweise umgesetzt und es verblieben noch etwa zwei Wochen Zeit für das gesamte Projekt, was die Wahl noch mal bekräftigte. 
 
-Die Wahl fiel deshalb auf das Einsortieren in eine sortierte Liste. Es erfüllt
-das Richtungsprinzip, die Gondel fährt jedes Ziel ohne Zwischenhalt an, und bei
-einem neuen Ruf muss nur dieser eine Eintrag eingeordnet werden.
-
-#todo[
-  Bewertung in @tab:varianten ist ein Vorschlag, bitte prüfen. Die Kriterien
-  sind an eure Gründe angepasst (vorher: Korrektheit, Übersichtlichkeit,
-  Rechenaufwand, Umsetzbarkeit in CBM).
-]
 
 #figure(
   table(
