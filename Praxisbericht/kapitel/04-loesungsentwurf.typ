@@ -65,19 +65,79 @@ Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fa
 
 
 == Lösungsvarianten für die Rufverwaltung <kap:varianten>
+
+Die Rufverwaltung legt fest, in welcher Reihenfolge die Gondel die gedrückten
+Taster bedient. Alle Ansätze müssen dabei das Richtungsprinzip (A3) einhalten:
+Rufe in Fahrtrichtung werden auf dem Weg mitgenommen, Rufe in Gegenrichtung erst
+nach dem Richtungswechsel. In der Gruppe wurden dafür vier Ansätze diskutiert,
+die sich vor allem darin unterscheiden, ob und wie die Rufe in einer Liste
+gespeichert werden.
+
+*Rufspeicher ohne Zielliste.* \ Der erste Ansatz kommt ganz ohne Liste aus. Die
+Rufe werden nur in drei Arrays mit einem Eintrag pro Stockwerk gespeichert: eines
+für die Innentaster und je eines für die Außentaster aufwärts und abwärts. Die
+Gondel fährt immer ein Stockwerk weiter und prüft dort, ob für diese Etage ein
+Innenruf oder ein Außenruf in Fahrtrichtung vorliegt. Je nachdem hält sie an oder
+fährt weiter, die Reihenfolge der Ziele ergibt sich also erst während der Fahrt.
+
+*Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
+Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am
+höchsten Ziel ein Umkehrpunkt gesetzt, an dem die Gondel die Richtung wechselt.
+Das gilt auch dann, wenn danach noch Rufe weiter oben in Fahrtrichtung eingehen;
+diese werden erst bei der nächsten Aufwärtsfahrt bedient. So soll in hohen
+Gebäuden verhindert werden, dass die Gondel erst alle Stockwerke hinauf- und dann
+alle wieder hinunterfährt, während Fahrgäste in Gegenrichtung lange warten.
+
+*Einsortieren in eine sortierte Liste.* \ Im dritten Ansatz, der am Ende
+umgesetzt wurde, wird jeder neue Ruf direkt an der passenden Stelle in die
+bestehende Zielliste eingefügt. Da die Liste nur durch dieses Einsortieren
+aufgebaut wird und beim Abarbeiten immer nur das erste Ziel entfällt, wird
+angenommen, dass sie stets richtig sortiert ist. Die übrigen Ziele müssen deshalb
+nicht neu geordnet werden. Die erste Umsetzung direkt in Structured Text
+verglich dazu den neuen Ruf mit den benachbarten Einträgen und scheiterte an
+Zielen hinter einem Richtungswechsel. Die endgültige Lösung aus dem C++-Prototyp
+teilt die Liste deshalb mit zwei Markern in bis zu drei Abschnitte und sortiert
+den Ruf nur in den passenden Abschnitt ein (@kap:zielliste).
+
+*Liste bei jedem Ruf neu sortieren.* \ Der vierte Ansatz entstand erst danach,
+aus der Frage, was passiert, wenn die Zielliste doch einmal unsortiert ist. Dazu
+wird bei jedem neuen Ruf eine neue Liste aufgebaut, in die alle Ziele der alten
+Liste und der neue Ruf nacheinander nach dem Richtungsprinzip einsortiert werden.
+Anschließend ersetzt sie die alte Liste. Die Reihenfolge hängt damit nur von der
+aktuellen Position und Fahrtrichtung der Gondel ab und nicht davon, wie die alte
+Liste aussah.
+
 #todo[
-  Die vier Ansätze aus der Entwurfsphase, je zwei bis drei Sätze:
-  - Einfügen mit Fallunterscheidung: Liste durchlaufen, Nachbarn vergleichen,
-    je nach Fall einfügen (erster Versuch direkt in Structured Text)
-  - Dummy-Eintrag in Gegenrichtung für nicht mehr erreichbare Ziele
-  - Drei getrennte Listen (auf dem Weg, Gegenrichtung, nicht mehr auf dem Weg)
-  - Eine Liste mit zwei Markern für die Richtungswechsel
+  Prüfen: Ansatz 1 -- woran entscheidet die Gondel, ob sie die Richtung wechselt?
+  Ansatz 2 -- liegt der Umkehrpunkt am höchsten Ziel zum Zeitpunkt des Gegenrufs?
 ]
 
 == Bewertung und Auswahl
+
+Die Ansätze wurden danach bewertet, ob sie das Richtungsprinzip (A3) erfüllen,
+wie gleichmäßig die Gondel damit fährt, wie komplex die Umsetzung ist und wie
+viel die Steuerung bei jedem Ruf rechnen muss. @tab:varianten fasst die Bewertung
+zusammen.
+
+Den Rufspeicher ohne Zielliste verwarf die Gruppe, weil sie vermutete, dass die
+Gondel damit ruckartig fährt: Sie müsste an jedem Stockwerk anhalten und prüfen,
+ob sie weiterfahren soll. Feste Umkehrpunkte lohnen sich vor allem in hohen
+Gebäuden. In der Simulation mit sechs Stockwerken bringen sie kaum einen Vorteil,
+machen die Steuerung aber deutlich komplexer. Das vollständige Neusortieren
+würde zwar auch eine unsortierte Liste wieder ordnen. Da die Zielliste beim
+Einsortieren aber von Anfang an sortiert aufgebaut wird und beim Abarbeiten nur
+das erste Ziel entfällt, kann eine unsortierte Liste gar nicht entstehen. Alle
+Ziele bei jedem Tastendruck neu zu sortieren, wäre damit nur zusätzlicher
+Rechenaufwand.
+
+Die Wahl fiel deshalb auf das Einsortieren in eine sortierte Liste. Es erfüllt
+das Richtungsprinzip, die Gondel fährt jedes Ziel ohne Zwischenhalt an, und bei
+einem neuen Ruf muss nur dieser eine Eintrag eingeordnet werden.
+
 #todo[
-  Einleitender Satz zu den Kriterien, dann @tab:varianten füllen und die Auswahl
-  in zwei bis drei Sätzen begründen.
+  Bewertung in @tab:varianten ist ein Vorschlag, bitte prüfen. Die Kriterien
+  sind an eure Gründe angepasst (vorher: Korrektheit, Übersichtlichkeit,
+  Rechenaufwand, Umsetzbarkeit in CBM).
 ]
 
 #figure(
@@ -85,14 +145,14 @@ Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fa
     columns: (1fr, auto, auto, auto, auto),
     align: (left, center, center, center, center),
     table.header(
-      [*Variante*], [*Korrektheit*], [*Übersicht-\ lichkeit*], [*Rechen-\ aufwand*], [*Umsetzbar-\ keit in CBM*],
+      [*Variante*], [*Richtungs-\ prinzip (A3)*], [*Fahr-\ verhalten*], [*Geringe\ Komplexität*], [*Geringer\ Rechenaufwand*],
     ),
-    [Einfügen mit Fallunterscheidung], [], [], [], [],
-    [Dummy-Eintrag], [], [], [], [],
-    [Drei getrennte Listen], [], [], [], [],
-    [Eine Liste mit zwei Markern], [], [], [], [],
+    [Rufspeicher ohne Zielliste], [+], [--], [+], [+],
+    [Feste Umkehrpunkte], [o], [+], [--], [o],
+    [Einsortieren in eine sortierte Liste], [+], [+], [o], [+],
+    [Liste bei jedem Ruf neu sortieren], [+], [+], [o], [--],
   ),
-  caption: [Bewertung der Lösungsvarianten für die Rufverwaltung],
+  caption: [Bewertung der Lösungsvarianten für die Rufverwaltung (+ gut, o mittel, -- schlecht)],
 ) <tab:varianten>
 
 == Algorithmus der Zielliste <kap:zielliste>
@@ -106,6 +166,11 @@ Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fa
   - Aufbau der Liste: bis zu drei Abschnitte (Fahrtrichtung vor der Kabine,
     Gegenrichtung, wieder Startrichtung)
   - Marker `rWechsel1` und `rWechsel2` für die Richtungswechsel
+  - Optional: Zwischenschritte bis zur Marker-Lösung -- Einfügen mit
+    Fallunterscheidung der Nachbarn `i` und `i+1` (erster ST-Versuch, scheiterte
+    am „Sprung“, z. B. gehört in 2↑ 3↑ 4↑ 1↑ ein neuer Ruf 3↓ vor 1↑),
+    Dummy-Eintrag in Gegenrichtung (Ziel, das niemand angefordert hat) und drei
+    getrennte Listen (Grundgedanke der drei Abschnitte)
   - Einsortieren an einem Beispiel durchspielen: Kabine in Stock 2 aufwärts,
     nacheinander Innenrufe in 4, 1 und 3 -- die Liste nach jedem Schritt als
     kleine Tabelle
