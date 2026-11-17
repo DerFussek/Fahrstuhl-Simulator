@@ -79,6 +79,11 @@ für die Innentaster und je eines für die Außentaster aufwärts und abwärts. 
 Gondel fährt immer ein Stockwerk weiter und prüft dort, ob für diese Etage ein
 Innenruf oder ein Außenruf in Fahrtrichtung vorliegt. Je nachdem hält sie an oder
 fährt weiter, die Reihenfolge der Ziele ergibt sich also erst während der Fahrt.
+Die Richtung behält die Gondel bei, solange in Fahrtrichtung noch Rufe
+gespeichert sind. Erst wenn dort keine mehr vorliegen, hält sie auch für einen
+Ruf in Gegenrichtung und wechselt die Richtung; ohne weitere Rufe bleibt sie
+stehen. Diesen Ablauf beschreiben drei Flussdiagramme aus der Entwurfsphase
+(@anh:skizzen).
 
 *Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
 Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am
@@ -108,8 +113,8 @@ aktuellen Position und Fahrtrichtung der Gondel ab und nicht davon, wie die alte
 Liste aussah.
 
 #todo[
-  Prüfen: Ansatz 1 -- woran entscheidet die Gondel, ob sie die Richtung wechselt?
-  Ansatz 2 -- liegt der Umkehrpunkt am höchsten Ziel zum Zeitpunkt des Gegenrufs?
+  Prüfen: Feste Umkehrpunkte -- liegt der Umkehrpunkt am höchsten Ziel zum
+  Zeitpunkt des Gegenrufs?
 ]
 
 == Bewertung und Auswahl
