@@ -10,12 +10,12 @@
   studiengang: [Elektrotechnik],
   studienrichtung: [Automation],
   autor: [Til Dussel],
-  abgabedatum: [TT.MM.JJJJ],           // TODO: Abgabetermin bei der ABB erfragen
-  bearbeitungszeitraum: [xx Wochen],   // TODO
+  abgabedatum: [20.11.2026],           // TODO: Abgabetermin bei der ABB erfragen
+  bearbeitungszeitraum: [3 Wochen],   // TODO
   matrikelnummer: [Matrikelnummer],    // TODO
-  kurs: [Kurs],                        // TODO
-  firma: [ABB, Stadt],                 // TODO: genaue Firmierung und Standort
-  betreuer-firma: [Titel Vorname Nachname],  // TODO
+  kurs: [TEIT26A],                        // TODO
+  firma: [ABB AG, Mannheim],                 // TODO: genaue Firmierung und Standort
+  betreuer-firma: [Patrick Boldt],  // TODO
   gutachter-hochschule: none,          // Uebung der ABB: kein Gutachter der DHBW
 
   // Nur einkommentieren, wenn die ABB einen Sperrvermerk verlangt:

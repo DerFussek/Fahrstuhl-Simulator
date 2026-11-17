@@ -67,25 +67,24 @@ Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fa
 == Lösungsvarianten für die Rufverwaltung <kap:varianten>
 
 Die Rufverwaltung legt fest, in welcher Reihenfolge die Gondel die gedrückten
-Taster bedient. Alle Ansätze müssen dabei das Richtungsprinzip (A3) einhalten:
+Taster bedient. Alle Ansätze müssen dabei das Richtungsprinzip (A3, @tab:anforderungen) einhalten:
 Rufe in Fahrtrichtung werden auf dem Weg mitgenommen, Rufe in Gegenrichtung erst
-nach dem Richtungswechsel. In der Gruppe wurden dafür vier Ansätze diskutiert,
+nach dem Richtungswechsel. In unserer Gruppe wurden dafür vier Ansätze diskutiert,
 die sich vor allem darin unterscheiden, ob und wie die Rufe in einer Liste
-gespeichert werden.
+gespeichert und einsortiert werden.
 
-*Rufspeicher ohne Zielliste.* \ Der erste Ansatz kommt ganz ohne Liste aus. Die
-Rufe werden nur in drei Arrays mit einem Eintrag pro Stockwerk gespeichert: eines
-für die Innentaster und je eines für die Außentaster aufwärts und abwärts. Die
-Gondel fährt immer ein Stockwerk weiter und prüft dort, ob für diese Etage ein
-Innenruf oder ein Außenruf in Fahrtrichtung vorliegt. Je nachdem hält sie an oder
-fährt weiter, die Reihenfolge der Ziele ergibt sich also erst während der Fahrt.
-Die Richtung behält die Gondel bei, solange in Fahrtrichtung noch Rufe
-gespeichert sind. Erst wenn dort keine mehr vorliegen, hält sie auch für einen
-Ruf in Gegenrichtung und wechselt die Richtung; ohne weitere Rufe bleibt sie
-stehen. Diesen Ablauf beschreiben drei Flussdiagramme aus der Entwurfsphase
-(@anh:skizzen).
+*I. Rufspeicher ohne Zielliste.* \ 
+Der Erste Ansatz funktioniert ohne Liste. Die Rufe werden in drei Arrays mit einem Eintrag pro 
+Stockwerk gespeichert. Dabei gibt es ein Arrays für Innenrufe und jeweils ein Array für die 
+Außentaster hoch und runter.\
+Die Gondel fährt immer ein Stockwerk weiter und prüft, ob dort ein Innen- oder Außenruf in Fahrtrichtung ansteht.
+Je nachdem hält sie an oder fährt in das nächste Stockwerk weiter. Die Reihenfolge der Ziele ergibt sich während der Fahrt,
+dabei behält die Gondel die Richtung bei, solange in Fahrtrichtung noch Rufe offen sind. Ist dies nicht mehr der Fall und alle
+Rufe in Fahrtrichtung wurden abgearbeitet, hält die Gondel auch für Rufe in Gegenrichtung und wechselt die Fahrtrichtung;
+sind keine Rufe gespeichert, bleibt die Gondel stehen. Der beschriebene Ablauf wird auch durch die drei Flussdiagramme im @anh:skizzen
+veranschaulicht.
 
-*Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
+*II. Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
 Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am zu
 diesem Zeitpunkt höchsten Ziel ein Umkehrpunkt gesetzt. Dort wechselt die Gondel
 die Richtung und fährt nicht mehr höher, auch wenn danach noch Rufe weiter oben
@@ -94,7 +93,7 @@ bedient. So soll etwa in einem Gebäude mit 100 Stockwerken verhindert werden,
 dass die Gondel erst ganz hinauf- und dann ganz hinunterfährt, während Fahrgäste
 in Gegenrichtung lange warten.
 
-*Einsortieren in eine sortierte Liste.* \ Im dritten Ansatz, der am Ende
+*III. Einsortieren in eine sortierte Liste.* \ Im dritten Ansatz, der am Ende
 umgesetzt wurde, wird jeder neue Ruf direkt an der passenden Stelle in die
 bestehende Zielliste eingefügt. Da die Liste nur durch dieses Einsortieren
 aufgebaut wird und beim Abarbeiten immer nur das erste Ziel entfällt, wird
@@ -105,7 +104,7 @@ Zielen hinter einem Richtungswechsel. Die endgültige Lösung aus dem C++-Protot
 teilt die Liste deshalb mit zwei Markern in bis zu drei Abschnitte und sortiert
 den Ruf nur in den passenden Abschnitt ein (@kap:zielliste).
 
-*Liste bei jedem Ruf neu sortieren.* \ Der vierte Ansatz entstand erst danach,
+*IV. Liste bei jedem Ruf neu sortieren.* \ Der vierte Ansatz entstand erst danach,
 aus der Frage, was passiert, wenn die Zielliste doch einmal unsortiert ist. Dazu
 wird bei jedem neuen Ruf eine neue Liste aufgebaut, in die alle Ziele der alten
 Liste und der neue Ruf nacheinander nach dem Richtungsprinzip einsortiert werden.
