@@ -8,7 +8,7 @@
 
 #figure(
   image("../bilder/systemaufbau.svg", width: 100%),
-  caption: [Systemaufbau der Aufzugssteuerung],
+  caption: [Systemaufbau der Aufzugssteuerung, eigene Darstellung],
 ) <abb:systemaufbau>
 
 Die Aufzugssteuerung besteht aus insgesamt neun Bausteinen. @abb:systemaufbau zeigt deren Aufgabenverteilung sowie die wesentlichen Signalverbindungen. Die Steuerung teilt sich in die Ruf- und Zielverwaltung, die Motor- und Türsteuerung sowie die Ansteuerung der Tasteranzeigen auf.
@@ -31,7 +31,7 @@ Innerhalb der Anwendung `TD_Appl` ist die Steuerung auf die beiden Diagramme `DT
 
 #figure(
   image("../bilder/ablauf-gesamt.svg", width: 100%),
-  caption: [Ablauf vom Ruf bis zur Fahrt],
+  caption: [Ablauf vom Ruf bis zur Fahrt, eigene Darstellung],
 ) <abb:ablauf>
 
 Der Ablauf einer Fahrt ergibt sich aus dem Zusammenspiel von Rufverwaltung, Motor- und Türsteuerung. @abb:ablauf unterteilt die Rufbearbeitung und den Ablauf von Fahrt- und Türbewegungen in zwei Bereiche, die parallel arbeiten: Neue Rufe lassen sich somit auch während einer laufenden Fahrt oder einer Türbewegung verarbeiten. Die Zustände im Ablaufdiagramm existieren nicht als Zustandsvariablen, sondern dienen nur zur Veranschaulichung.
@@ -159,7 +159,7 @@ einem neuen Ruf muss nur dieser eine Eintrag eingeordnet werden.
 
 #figure(
   image("../bilder/add-target.svg", width: 100%),
-  caption: [Einsortieren eines Rufs mit `AddTargetToList`],
+  caption: [Einsortieren eines Rufs mit `AddTargetToList`, eigene Darstellung],
 ) <abb:addtarget>
 
 #todo[

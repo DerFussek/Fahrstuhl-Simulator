@@ -44,9 +44,9 @@
 // Beispiel: Ausschnitt aus der Datei im Repo. Zeilen anpassen.
 #code-abbildung(
   "../ControlBuilder/DT_FahrstuhlLib/FunctionBlockTypes/AddTargetToList.st",
-  [Ausschnitt aus dem Funktionsbaustein AddTargetToList],
+  [Ausschnitt aus dem Funktionsbaustein AddTargetToList, eigene Darstellung],
   zeilen: (1, 25),
-) <abb:addtarget>
+) <abb:addtarget-code>
 
 #figure(
   table(
@@ -72,5 +72,5 @@
 
 #abbildung-folgt(
   [Screenshot des Grafikbilds „Fahrstuhl Schacht“],
-  [Visualisierung der Aufzugssteuerung],
+  [Visualisierung der Aufzugssteuerung, eigene Darstellung],
 ) <abb:visualisierung>

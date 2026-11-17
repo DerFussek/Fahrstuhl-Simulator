@@ -274,12 +274,15 @@
   body
 }
 
-// Anhaenge: "Anhang A: Titel", Unterkapitel A.1, A.2, ...
+// Anhaenge: "Anhang A Titel", Unterkapitel A.1, A.2, ...
+// Verweise im Text: "Anhang A" bzw. "Anhang A.1" (statt "Abschnitt ...").
 #let anhang(body) = {
   counter(heading).update(0)
   set heading(numbering: (..n) => {
     let p = n.pos()
-    if p.len() == 1 { "Anhang " + numbering("A:", ..p) } else { numbering("A.1", ..p) }
-  })
+    if p.len() == 1 { "Anhang " + numbering("A", ..p) } else { numbering("A.1", ..p) }
+  }, supplement: [Anhang])
+  // Die Nummer der Hauptueberschrift enthaelt "Anhang" schon selbst.
+  show heading.where(level: 1): set heading(supplement: none)
   body
 }
