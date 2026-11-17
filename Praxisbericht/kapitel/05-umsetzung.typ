@@ -46,7 +46,7 @@
   "../ControlBuilder/DT_FahrstuhlLib/FunctionBlockTypes/AddTargetToList.st",
   [Ausschnitt aus dem Funktionsbaustein AddTargetToList, eigene Darstellung],
   zeilen: (1, 25),
-) <abb:addtarget>
+) <abb:addtarget-code>
 
 #figure(
   table(
