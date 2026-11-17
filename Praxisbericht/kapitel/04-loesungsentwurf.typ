@@ -11,26 +11,21 @@
   caption: [Systemaufbau der Aufzugssteuerung],
 ) <abb:systemaufbau>
 
+Die Aufzugssteuerung besteht aus insgesamt neun Bausteinen. @abb:systemaufbau zeigt deren Aufgabenverteilung sowie die wesentlichen Signalverbindungen. Die Steuerung teilt sich in die Ruf- und Zielverwaltung, die Motor- und Türsteuerung sowie die Ansteuerung der Tasteranzeigen auf.
 
-Die gesamte Steuerung besteht aus neun Bausteinen, die in @abb:systemaufbau dargestellt sind. Dabei ist das Control Modul `TD_Gondel` das zentrale Element. Es liest die Signale
-aller Taster ein, verwaltet die Zielliste und gibt an die übrigen Bausteine
-weiter, wohin die Gondel fahren soll und wann die Türen öffnen muss. Die Taster sind direkt in das Grafikbild integriert und gliedern sich in insgesamt sechs Innentaster sowie zehn Außentaster (aufgeteilt in jeweils fünf Taster für die Aufwärts- und Abwärtsfahrt).
+Als zentrale Schnittstelle zwischen den Bedienereingaben und der Fahrsteuerung dient das Control Module `TD_Gondel`. Es erfasst die sechs Innentaster sowie die zehn Außentaster, die sich jeweils in fünf Taster für die Aufwärts- und Abwärtsfahrt aufteilen. Die Taster sind in das Grafikbild integriert und werden innerhalb von `TD_Gondel` in drei Arrays zusammengefasst.
 
-Das Modul `TD_Gondel` fasst die Taster in drei Arrays zusammen. Neue Rufe werden durch
-den Funktionsbaustein `AddTargetToList` in die Zielliste einsortiert, die maxiam zehn Ziele,
-bestehend aus Stockwerk und Richtung, aufnehmen kann (@kap:zielliste). Erreichte Ziele werden anschließend über TD_RemoveAtIndex wieder aus der Liste entfernt.
+Zur Verwaltung der Fahrtziele nutzt `TD_Gondel` eine Zielliste mit maximal zehn Einträgen, wobei jeder Eintrag das angeforderte Stockwerk und die dazugehörige Richtung enthält. Das Einfügen und Sortieren neuer Ziele übernimmt der Funktionsbaustein `AddTargetToList`, während `TD_RemoveAtIndex` Einträge aus der Liste löscht (das Sortierverfahren wird in @kap:zielliste genauer erläutert). Das Zurücksetzen der Taster übernimmt der Baustein `TD_ResetTaster`, den `TD_Gondel` direkt ansteuert.
 
-Die Motorsteuerung für die Gondel übernimmt der Baustein `TD_MotorController`. Dieser erhält ein `ZielStock` und fährt die Gondel, solange die Freigabe `Enable` aktiv ist, zum entsprechenden Zielstockwerk. Die aktuelle Position der Gondel wird als `GondelPos` an `TD_Gondel` zurückgesendet, um eine relative Sortierung der Zielliste zur Gondelposition umzusetzen.
+Der Gondelmotor wird von `TD_MotorController` gesteuert. `TD_Gondel` stellt ihm hierfür das erste Ziel der Zielliste als `ZielStock` sowie die Fahrtfreigabe `Enable` zur Verfügung. Als Rückmeldungen liefert der Motorcontroller die aktuelle Gondelposition (`GondelPos`) und das Signal `Done` beim Erreichen der Zielposition, welches von `TD_Gondel` genutzt wird, um neue Ziele relativ zur aktuellen Position einzusortieren.
 
-Der Baustein `DT_Door` übernimmt die Steuerung der Kabinen- und Schachttürren.
-Dafür wertet dieser die Endlagen, die Lichtschranke und die Taster "Tür auf" und "Tür zu" aus. Dabei sendet dieser über `EnableGondel` den geschlossen Zustand der Türen zurück.
-Im Diagram `DT_Gondel` wird dies über einem Und-Gatter mit `HatZiel` verknüpft und steuert so die Freigabe `Enable` der Motorsteuerung.
+Die Türsteuerung `DT_Door` wertet die Türendlagen, die Lichtschranke sowie die Taster „Tür auf“ und „Tür zu“ aus. Sie steuert sowohl die Kabinentür über `TD_Door_Pos` als auch die Schachttürren des jeweiligen Stockwerks über `TD_Shaftdoor_Pos`, wobei die Position `GondelPosExpo` fest legt, welche Schachttür sich öffnnet. Über `TuerAufCMD` kann `TD_Gondel` eine Türöffnung anfordern; die Ankunft am Ziel wird der Türsteuerung über die Rückmeldung `Done` signalisiert.
 
-Zuletzt wertet `TD_LedSteuerung` die Zielliste (`TargetList`, `TargetCount`)
-aus und beleuchtet die Taster, deren Rufe noch offen sind.
+Das Signal `EnableGondel` zeigt an, dass alle Türen geschlossen sind und eine Fahrt freigegeben werden kann. Im Diagramm `DT_Gondel` wird dises über eine UND-Verknüpfung mit `HatZiel` verschaltet. Das daraus entstehende Signal `Enable` gibt den Motorcontroller nur dann frei, wenn ein Fahrtziel vorliegt und die Türsteuerung die Fahrt freigibt.
 
-Innerhalb der Anwendung `TD_Appl` ist die Steuerung auf zwei Diagramme aufgeteilt. Dabei übernimmt `DT_Gondel` die Fahrlogik, während `DT_Door` die Türsteuerung regelt. Die Kommunikation zwischen den beiden Diagrammen findet über Communication Variablen statt.
-Fast alle Bausteine sind als Control Module implementiert, außer die Listenoperationen, die als Funktionsbausteine direkt in `TD_Gondel` benutzt werden.
+Die Anzeige offener Rufe übernimmt der Baustein `TD_LedSteuerung`. Dieser erhält die Zielliste über `TargetList` und deren Größe über `TargetCount`, woraufhin er die entsprechenden Taster beleuchtet.
+
+Innerhalb der Anwendung `TD_Appl` ist die Steuerung auf die beiden Diagramme `DT_Gondel` (Fahrlogik) und `DT_Door` (Türsteuerung) aufgeteilt, wobei der Datenaustausch zwischen ihnen über Communication-Variablen erfolgt. Mit Ausnahme der beiden Listenoperationen sind alle Bausteine Control Modules; `AddTargetToList` und `TD_RemoveAtIndex` werden als Funktionsbausteine direkt innerhalb von `TD_Gondel` verwendet.
 
 == Ablauf einer Fahrt
 
@@ -39,62 +34,35 @@ Fast alle Bausteine sind als Control Module implementiert, außer die Listenoper
   caption: [Ablauf vom Ruf bis zur Fahrt],
 ) <abb:ablauf>
 
-Eine Fahrt läuft in sechs verschiedenen Schritten ab: Ruf aufnehmen, einsortieren, Tür schließen, fahren, halten und Tür öffnen sowie Ruf löschen. Diese Schritte exsistieren nicht als Zustandsvariablen, sondern ergeben sich durch das Verhalten aus dem Zusammenspiel von Zielliste, Tür und Motor; die Zustände im rechten Teil von @abb:ablauf werden direkt aus deren Signalen abgeleitet.
+Der Ablauf einer Fahrt ergibt sich aus dem Zusammenspiel von Rufverwaltung, Motor- und Türsteuerung. @abb:ablauf unterteilt die Rufbearbeitung und den Ablauf von Fahrt- und Türbewegungen in zwei Bereiche, die parallel arbeiten: Neue Rufe lassen sich somit auch während einer laufenden Fahrt oder einer Türbewegung verarbeiten. Die Zustände im Ablaufdiagramm existieren nicht als Zustandsvariablen, sondern dienen nur zur Veranschaulichung.
 
-*Ruf aufnehmen und einsortieren.* \ Betätigt eine Person einen Innen- oder
-Außentaster, übernimmt `TD_Gondel` das Signal und gibt es als Ziel aus
-Stockwerk und Richtung an `AddTargetToList` weiter. Die Funktion ignoriert doppelte
-Rufe und nimmt bei zehn Einträgen keine weiteren an. Ist die Gondel bereits
-im gewünschten Stockwerk, öffnet nur die Tür (`TuerAufCMD`) und der Ruf
-wird nicht in die Liste einsortiert (A5 in @tab:anforderungen). Ist schon ein Ziel in
-der Liste, gilt dies nur für einen Ruf in Fahrtrichtung. Alle anderen Rufe
-sortiert die Funktion nach dem Richtungsprinzip ein (@kap:zielliste). 
-Die Einsortierung der Liste erfolgt auch parallel während einer Fahrt und kann somit auch das erste Ziel verändern. Der linke Teil von @abb:ablauf zeigt diese Rufbearbeitung.
+*I. Ruf aufnehmen und einordnen* \ 
+Wird ein Innen- oder Außentaster betätigt, verarbeitet `TD_Gondel` die Anforderung als Ziel bestehend aus Stockwerk und Richtung. Bereits hinterlegte Rufe werden nicht erneut aufgenommen und sobald alle zehn Listenplätze belegt sind, werden keine weiteren Rufe mehr in die Zielliste einsortiert.
 
-*Tür schließen.* \ Sobald mindestens ein Eintrag in der Zielliste ist, 
-aktiviert `TD_Gondel` den Ausgang `HatZiel`. Der Motor startet jedoch erst,
-wenn auch das Freigabesignal `EnableGondel` von `DT_Door` aktiv ist (A6).
-Ist die Tür noch offen, wird nach 5~s Offenhaltezeit die Tür geschlossen (A8).
-Die Lichtschranke und der Tür-auf-Taster sind jeodch priorisiert. Solange eines dieser beiden Signale aktiv ist, hält der Timer an und ein aktiver Schließvorgang wird zu einem Öffnen der Tür umgewandelt (A7).
+Befindet sich die Gondel bereits auf dem angeforderten Stockwerk, wird der Ruf direkt durch ein Öffnen der Tür über `TuerAufCMD` bedient, ohne dafür einen neuen Listeneintrag anzulegen (A5,  @tab:anforderungen). Bei einer nicht leeren Zielliste gilt dies allerdings nur für Rufe in der aktuellen Fahrtrichtung; ein Ruf in Gegenrichtung wird stattdessen normal in die Zielliste einsortiert.
 
-*Fahren.* \ Sobalt `Enable` am `TD_MotorController` anliegt, 
-liest dieser das erste Element in der Zielliste als `ZielStock` und
-bewegt die Gondel pro Zyklus um zehn Pixel in Richtung Zielposition. Ein
-Stockwerk entspricht dabei 180 Pixeln. Die aktuelle Position meldet er als
-`GondelPos` und `GondelPosExpo` zurück.
+Alle übrigen Rufe werden nach dem Richtungsprinzip eingeordnet, welches in @kap:zielliste näher beschrieben wird. Da die Rufbearbeitung während des gesamten Betriebs aktiv bleibt, können neue Rufe auch während einer Fahrt die Reihenfolge der Ziele und damit das momentane Fahrtziel verändern.
 
-*Halten und Tür öffnen.* \ Ist die Zielposition erreicht, aktiviert die Motorsteuerung `Done`
-und hält an. `DT_Door` erkennt `Done` als steigende Flanke an `EnableTuer` und
-gibt ein Öffnen-Befehl an `TD_Door_Pos` (Kabinentür) und `TD_Shaftdoor_Pos`
-(Schachttür) weiter. Welche Schachttür dabei auf- und zufährt, bestimmt `GondelPosExpo`. Nach dem Erreichen der Endlage beginnt die Offen-Zeit von 5~s.
+*II. Türen schließen und Fahrt freigeben* \
+Sobald die Zielliste mindestens einen Eintrag enthält, aktiviert `TD_Gondel` das Signal `HatZiel` und stellt das erste Listenelement als `ZielStock` für die Motorsteuerung bereit. Die Fahrt beginnt jedoch erst, wenn auch die Türfreigabe `EnableGondel` vorliegt (A6).
 
-*Ruf löschen.* \ Mit dem Signal `Done` löscht `TD_Gondel` den ersten
-Eintrag in der Zielliste. Dabei rücken die übrigen Ziele nach vorn. 
-`TD_LedSteuerung` setzt in jedem Zyklus alle LEDs zurück und
-beleuchtet nur die Taster der noch offenen Rufe hat.
-Sind noch weitere Ziele in der Liste, schließen die
-Türen und die nächste Fahrt wird bearbeitet.
+Ist die Tür noch geöffnet, bleibt sie für die Offenhaltezeit von fünf Sekunden geöffnet, bevor `DT_Door` den Schließvorgang auslöst (A8). Mit dem "Tür zu" Taster lässt sich das Schließen vorher auslösen. Ein neuer Ruf verkürzt die Offenhaltezeit nicht.
 
+Die Lichtschranke sowie der Taster „Tür auf“ werden vor dem Schließvorgang priorisiert. Solange eines dieser Signale aktiv ist, wird der Offenhalte-Timer angehalten. Erfolgt die Betätigung während eines bereits laufenden Schließvorgangs, öffnen sich die Türen wieder (A7). Erst wenn die Türen vollständig geschlossen sind und weiterhin ein Ziel ansteht, wird `Enable` aktiviert.
 
-#todo("Tabelle 2 an den veränderten Text in 4.1 und 4.2 anpassen.")
-#figure(
-  table(
-    columns: (auto, 1fr, 1fr),
-    align: (left, left, left),
-    table.header([*Zustand*], [*Erkennbar an*], [*Übergang*]),
-    [Leerlauf], [`HatZiel` = false, Tür geschlossen],
-      [Neuer Ruf in anderem Stockwerk: Fahren. Ruf im aktuellen Stockwerk: Tür öffnet],
-    [Fahren], [`EnableGondel` und `HatZiel`, Gondel nicht am Ziel],
-      [`Done`: Tür öffnet],
-    [Tür öffnet], [`Oeffnen` in `DT_Door`],
-      [Endlage Auf erreicht: Tür offen],
-    [Tür offen], [Endlage Auf, Offen-Timer läuft],
-      [5~s ohne Lichtschranke und Tür-auf-Taste, oder Tür-zu-Taste: Tür schließt],
-    [Tür schließt], [`Schliessen` in `DT_Door`],
-      [Endlage Zu erreicht: Fahren (mit Ziel) oder Leerlauf. Lichtschranke oder Tür-auf-Taste: Tür öffnet],
-  ),
-  caption: [Zustände der Aufzugssteuerung],
-) <tab:zustaende>
+*III. Zum Ziel fahren* \
+Bei Fahrtfreigabe verfährt `TD_MotorController` die Gondel zum entsprechenden `ZielStock`. Während der Fahrt stellt dieser die aktuelle Position als Rückmeldung bereit, welche sowohl für die fortlaufende Zielverwaltung als auch für die Zuordnung der jeweiligen Schachttür benutzt wird.
+
+*IV. Ziel erreichen und Ruf abschließen* \
+Beim Erreichen der Zielposition stoppt der Motorcontroller die Gondel und aktiviert das Signal `Done`. Dies löst zwei Vorgänge aus, die parallel verlaufen. Die Türsteuerung leitet die Türöffnung ein und `TD_Gondel` entfernt das erreichte Ziel aus der Zielliste.
+
+Die Türsteuerung erkennt die Ankunft anhand der steigenden Flanke am Eingang `EnableTuer` und steuert das Öffnen der Kabinentür sowie der über `GondelPosExpo` ermittelten Schachttür an. Sobald die geöffnete Endlage erreicht ist, startet erneut die Offenhaltezeit von fünf Sekunden.
+
+Durch das Löschen des erreichten Ziels rücken die verbleibenden Listeneinträge auf. Die Tasterbeleuchtung wird entsprechend der aktualisierten Zielliste angepasst, sodass nur weiterhin offene Rufe angezeigt werden.
+
+*V. Weitere Ziele bearbeiten oder in den Leerlauf wechseln* \
+Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fahrtziel benutzt, woraufhin nach dem Schließen der Türen und erneuter Fahrtfreigabe die nächste Fahrt beginnt. Ist die Zielliste hingegen leer, bleibt die Gondel nach dem Schließen der Türen im Leerlauf, bis ein neuer Ruf eingeht.
+
 
 == Lösungsvarianten für die Rufverwaltung <kap:varianten>
 #todo[
@@ -128,6 +96,12 @@ Türen und die nächste Fahrt wird bearbeitet.
 ) <tab:varianten>
 
 == Algorithmus der Zielliste <kap:zielliste>
+
+#figure(
+  image("../bilder/add-target.svg", width: 100%),
+  caption: [Einsortieren eines Rufs mit `AddTargetToList`],
+) <abb:addtarget>
+
 #todo[
   - Aufbau der Liste: bis zu drei Abschnitte (Fahrtrichtung vor der Kabine,
     Gegenrichtung, wieder Startrichtung)
