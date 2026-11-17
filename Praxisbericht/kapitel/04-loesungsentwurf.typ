@@ -146,17 +146,83 @@ Rechenaufwand. Zudem war dieser Ansatz bereits teilweise umgesetzt und es verbli
   caption: [Einsortieren eines Rufs mit `AddTargetToList`, eigene Darstellung],
 ) <abb:addtarget>
 
-#todo[
-  - Aufbau der Liste: bis zu drei Abschnitte (Fahrtrichtung vor der Kabine,
-    Gegenrichtung, wieder Startrichtung)
-  - Marker `rWechsel1` und `rWechsel2` für die Richtungswechsel
-  - Optional: Zwischenschritte bis zur Marker-Lösung -- Einfügen mit
-    Fallunterscheidung der Nachbarn `i` und `i+1` (erster ST-Versuch, scheiterte
-    am „Sprung“, z. B. gehört in 2↑ 3↑ 4↑ 1↑ ein neuer Ruf 3↓ vor 1↑),
-    Dummy-Eintrag in Gegenrichtung (Ziel, das niemand angefordert hat) und drei
-    getrennte Listen (Grundgedanke der drei Abschnitte)
-  - Einsortieren an einem Beispiel durchspielen: Kabine in Stock 2 aufwärts,
-    nacheinander Innenrufe in 4, 1 und 3 -- die Liste nach jedem Schritt als
-    kleine Tabelle
-  - Sonderfälle: leere Liste, doppelter Ruf, volle Liste, Ruf im aktuellen Stockwerk
-]
+Neue Rufe sortiert der Funktionsbaustein `AddTargetToList` in die Zielliste ein.
+Er wird bei jedem neuen Ruf mit dem Ziel `NewElement` aus Stockwerk und Richtung
+aufgerufen und erhält dazu die aktuelle Gondelposition. Den Ablauf zeigt der
+linke Teil von @abb:addtarget.
+
+*Vorprüfungen.* \
+Bevor ein Ruf einsortiert wird, prüft der Baustein drei Sonderfälle. Ist die
+Liste mit zehn Zielen voll oder steht derselbe Ruf schon in der Liste, wird er
+ignoriert (A4, @tab:anforderungen). Steht die Gondel bereits im Stockwerk des
+Rufs, öffnet nur die Tür über `TuerAufCmd` und es entsteht kein Eintrag (A5).
+Bei einer nicht leeren Liste gilt das nur für einen Ruf in Startrichtung; ein
+Ruf in Gegenrichtung wird normal einsortiert. Ist die Liste leer, wird der Ruf
+zum ersten Ziel.
+
+*Aufbau der Zielliste.* \
+Die Liste besteht aus bis zu drei Abschnitten, die die Gondel nacheinander
+abfährt (rechter Teil von @abb:addtarget). Grundlage ist die Startrichtung: Sie
+ist aufwärts, wenn die Gondel unter dem ersten Ziel steht, abwärts, wenn sie
+darüber steht, und sonst die Richtung des ersten Ziels.
+
+- Abschnitt 1 enthält die Ziele in Startrichtung, die noch vor der Gondel
+  liegen, sortiert in Startrichtung.
+- Abschnitt 2 enthält die Ziele in Gegenrichtung, sortiert in Gegenrichtung.
+- Abschnitt 3 enthält die Ziele in Startrichtung, an denen die Gondel schon
+  vorbei ist. Sie werden erst nach dem zweiten Richtungswechsel erreicht und
+  sind wieder in Startrichtung sortiert.
+
+*Marker für die Richtungswechsel.* \
+Die Grenzen zwischen den Abschnitten halten die Marker `rWechsel1` und
+`rWechsel2` fest. `rWechsel1` ist die letzte Position von Abschnitt 1. Der
+Baustein findet sie, indem er die Liste von vorn durchläuft, bis ein Ziel die
+Richtung wechselt oder die Sortierung bricht, etwa beim Sprung von 5▲ zurück auf
+1▲. `rWechsel2` ist die erste Position von Abschnitt 3, also das erste Ziel nach
+`rWechsel1`, das wieder in Startrichtung zeigt. Gibt es einen Wechsel nicht,
+bleibt der Marker 0. Die Marker werden nicht gespeichert, sondern bei jedem Ruf
+neu aus der Liste bestimmt.
+
+*Einsortieren.* \
+Mit zwei Fragen ordnet der Baustein den Ruf einem Abschnitt zu: Zeigt der Ruf in
+Startrichtung, und liegt sein Stockwerk noch vor der Gondel? Ein Ruf in
+Gegenrichtung kommt in Abschnitt 2, ein erreichbarer Ruf in Startrichtung in
+Abschnitt 1 und ein nicht mehr erreichbarer in Abschnitt 3.
+`InsertBetweenLimits` hängt den Ruf an das Ende des Abschnitts, danach sortiert
+`SortBetweenLimits` den Abschnitt per Insertion Sort in seiner Richtung. Da der
+Abschnitt vorher schon sortiert war, rückt dabei nur der neue Ruf an seine
+Stelle. Gibt es Abschnitt 2 oder 3 noch nicht, kommt der Ruf an das Ende der
+Liste und bildet den neuen Abschnitt.
+
+*Beispiel.* \
+@tab:zielliste-beispiel zeigt, wie die Liste aus @abb:addtarget entsteht. Die
+Gondel steht in Stock 3, und sechs Außenrufe gehen kurz nacheinander ein. Der
+zweite Ruf 3▼ kommt zwar aus dem aktuellen Stockwerk, zeigt aber in
+Gegenrichtung und wird deshalb einsortiert. Im vierten Schritt gibt es
+Abschnitt 3 schon, sodass 6▼ in die Mitte der Liste gehört und nicht an das
+Ende. An genau diesem Fall scheiterte der erste Versuch in Structured Text, der
+nur benachbarte Einträge verglich. Mit den Markern steht der passende Abschnitt
+dagegen direkt fest. Am Ende gilt `rWechsel1`~=~2 und `rWechsel2`~=~5.
+
+#figure(
+  table(
+    columns: (auto, auto, 1fr, auto),
+    align: (center, center, left, left),
+    table.header([*Nr.*], [*Ruf*], [*Einordnung*], [*Zielliste danach*]),
+    [1], [5▲], [Liste leer: erstes Ziel], [5▲],
+    [2], [3▼], [Gegenrichtung: Abschnitt 2], [5▲ | 3▼],
+    [3], [1▲], [Startrichtung, schon passiert: Abschnitt 3], [5▲ | 3▼ | 1▲],
+    [4], [6▼], [Gegenrichtung: Abschnitt 2, absteigend], [5▲ | 6▼ 3▼ | 1▲],
+    [5], [4▲], [Startrichtung, vor der Gondel: Abschnitt 1, aufsteigend], [4▲ 5▲ | 6▼ 3▼ | 1▲],
+    [6], [2▲], [Startrichtung, schon passiert: Abschnitt 3, aufsteigend], [4▲ 5▲ | 6▼ 3▼ | 1▲ 2▲],
+  ),
+  caption: [Schrittweiser Aufbau der Beispiel-Zielliste, Gondel in Stock 3 (| trennt die Abschnitte)],
+) <tab:zielliste-beispiel>
+
+*Erreichte Ziele löschen.* \
+Erreicht die Gondel ein Ziel, entfernt `TD_RemoveAtIndex` den ersten Eintrag,
+und die übrigen Ziele rücken nach vorn. Ihre Reihenfolge ändert sich dabei
+nicht, die Liste bleibt also sortiert. Weil Startrichtung und Marker beim
+nächsten Ruf neu bestimmt werden, rücken auch die Abschnitte von selbst nach:
+Ist Abschnitt 1 abgearbeitet und hat die Gondel gewendet, wird aus Abschnitt 2
+der neue Abschnitt 1 und aus Abschnitt 3 der neue Abschnitt 2.
