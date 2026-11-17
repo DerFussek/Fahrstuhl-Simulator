@@ -86,12 +86,13 @@ stehen. Diesen Ablauf beschreiben drei Flussdiagramme aus der Entwurfsphase
 (@anh:skizzen).
 
 *Feste Umkehrpunkte.* \ Der zweite Ansatz begrenzt, wie weit die Gondel in eine
-Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am
-höchsten Ziel ein Umkehrpunkt gesetzt, an dem die Gondel die Richtung wechselt.
-Das gilt auch dann, wenn danach noch Rufe weiter oben in Fahrtrichtung eingehen;
-diese werden erst bei der nächsten Aufwärtsfahrt bedient. So soll in hohen
-Gebäuden verhindert werden, dass die Gondel erst alle Stockwerke hinauf- und dann
-alle wieder hinunterfährt, während Fahrgäste in Gegenrichtung lange warten.
+Richtung fährt. Kommt während einer Aufwärtsfahrt ein Ruf abwärts, wird am zu
+diesem Zeitpunkt höchsten Ziel ein Umkehrpunkt gesetzt. Dort wechselt die Gondel
+die Richtung und fährt nicht mehr höher, auch wenn danach noch Rufe weiter oben
+in Fahrtrichtung eingehen; diese werden erst bei der nächsten Aufwärtsfahrt
+bedient. So soll etwa in einem Gebäude mit 100 Stockwerken verhindert werden,
+dass die Gondel erst ganz hinauf- und dann ganz hinunterfährt, während Fahrgäste
+in Gegenrichtung lange warten.
 
 *Einsortieren in eine sortierte Liste.* \ Im dritten Ansatz, der am Ende
 umgesetzt wurde, wird jeder neue Ruf direkt an der passenden Stelle in die
@@ -111,11 +112,6 @@ Liste und der neue Ruf nacheinander nach dem Richtungsprinzip einsortiert werden
 Anschließend ersetzt sie die alte Liste. Die Reihenfolge hängt damit nur von der
 aktuellen Position und Fahrtrichtung der Gondel ab und nicht davon, wie die alte
 Liste aussah.
-
-#todo[
-  Prüfen: Feste Umkehrpunkte -- liegt der Umkehrpunkt am höchsten Ziel zum
-  Zeitpunkt des Gegenrufs?
-]
 
 == Bewertung und Auswahl
 
