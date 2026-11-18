@@ -1,5 +1,5 @@
 % Literatur im BibTeX-Format; Typst setzt sie im Stil IEEE.
-% Im Text zitieren mit @schluessel, z. B. @iec61131-3.
+% Im Text zitieren mit @schluessel, z. B. @din-en-61131-3, mit Seite @wellenreuther2015[S. 14].
 % Es erscheinen nur Quellen, die im Text zitiert werden.
 % Citavi und Zotero koennen BibTeX exportieren.
 %
@@ -8,25 +8,89 @@
 % - Norm- und Dokumentnummern in den Titel schreiben: im Feld number wird
 %   "61131-3" sonst zu "61131–3" (Gedankenstrich) und edition wird nicht gedruckt.
 %
-% TODO vor der Abgabe: Angaben an der Quelle pruefen (Ausgabe, Jahr, ggf. deutsche
-% Fassung DIN EN 61131-3 statt IEC 61131-3 zitieren).
+% Quellen recherchiert am 18.11.2026, Details und Seitenzahlen in der Vault-Notiz
+% "Fahrstuhl-Simulator Quellen". Normen in der DIN-Fassung, keine Seminarunterlagen.
+% TODO vor der Abgabe: pruefen, ob die DIN-Fassung von EN IEC 61131-3:2025 erschienen
+% ist (dann din-en-61131-3 auf diese Ausgabe umstellen).
 
-@manual{iec61131-3,
-  title     = {IEC 61131-3: Programmable controllers -- Part 3: Programming languages},
-  publisher = {International Electrotechnical Commission},
+% --- Speicherprogrammierbare Steuerungen ---
+
+@manual{din-en-61131-3,
+  title     = {DIN EN 61131-3:2014-06: Speicherprogrammierbare Steuerungen -- Teil 3: Programmiersprachen (IEC 61131-3:2013); Deutsche Fassung EN 61131-3:2013},
+  publisher = {DIN Deutsches Institut für Normung},
+  year      = {2014},
+  doi       = {10.31030/2101412},
+}
+
+@book{wellenreuther2015,
+  author    = {Wellenreuther, Günter and Zastrow, Dieter},
+  title     = {Automatisieren mit SPS -- Theorie und Praxis},
+  edition   = {6},
+  publisher = {Springer Vieweg},
+  address   = {Wiesbaden},
+  year      = {2015},
+  isbn      = {978-3-8348-2597-1},
+  doi       = {10.1007/978-3-8348-2598-8},
+}
+
+@book{john2009,
+  author    = {John, Karl Heinz and Tiegelkamp, Michael},
+  title     = {SPS-Programmierung mit IEC 61131-3: Konzepte und Programmiersprachen, Anforderungen an Programmiersysteme, Entscheidungshilfen},
+  edition   = {4},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  year      = {2009},
+  isbn      = {978-3-642-00268-7},
+  doi       = {10.1007/978-3-642-00269-4},
+}
+
+% --- ABB AC 800M und Control Builder M (frei in der ABB Library) ---
+
+@manual{abb-ccb-getting-started,
+  title     = {3BSE041584-600 B: Compact Control Builder AC 800M -- Getting Started, Version 6.0},
+  publisher = {ABB},
+  year      = {2016},
+  url       = {https://library.e.abb.com/public/8353699805e94e68b0466316736bd522/3BSE041584-600_B_en_Compact_Control_Builder_AC_800M_6.0_Getting_Started.pdf},
+  urldate   = {2026-11-18},
+}
+
+@manual{abb-ac800m-configuration,
+  title     = {3BSE035980-600 A: System 800xA Control -- AC 800M Configuration, System Version 6.0},
+  publisher = {ABB},
+  year      = {2016},
+  url       = {https://library.e.abb.com/public/0a5240681b35410d8e24ac55c75ee89c/3BSE035980-600_A_en_System_800xA_Control_6.0_AC_800M_Configuration.pdf},
+  urldate   = {2026-11-18},
+}
+
+@manual{abb-ac800m-hardware,
+  title     = {3BSE036351-510 A: AC 800M -- Controller Hardware, System Version 5.1},
+  publisher = {ABB},
   year      = {2013},
+  url       = {https://library.e.abb.com/public/1cb4fadd66365e57c1257b740027013b/3BSE036351-510_A_en_AC_800M_5.1_Controller_Hardware.pdf},
+  urldate   = {2026-11-18},
+}
+
+% --- Aufzuege ---
+
+@manual{amev-aufzug-2022,
+  title     = {Aufzug 2022: Hinweise für Planung, Ausschreibung und Verwendung von Aufzugsanlagen in öffentlichen Gebäuden (Empfehlung Nr. 163)},
+  publisher = {Arbeitskreis Maschinen- und Elektrotechnik staatlicher und kommunaler Verwaltungen (AMEV)},
+  address   = {Berlin},
+  year      = {2022},
+  url       = {https://www.amev-online.de/AMEVInhalt/Planen/Elektrotechnik/Aufzug%202022/2022-01_AMEV_Aufzug_2022.pdf},
+  urldate   = {2026-11-18},
 }
 
 @manual{din-en-81-20,
-  title     = {DIN EN 81-20: Sicherheitsregeln für die Konstruktion und den Einbau von Aufzügen -- Teil 20: Personen- und Lastenaufzüge},
+  title     = {DIN EN 81-20:2020-06: Sicherheitsregeln für die Konstruktion und den Einbau von Aufzügen -- Aufzüge für den Personen- und Gütertransport -- Teil 20: Personen- und Lastenaufzüge; Deutsche Fassung EN 81-20:2020},
   publisher = {DIN Deutsches Institut für Normung},
   year      = {2020},
+  doi       = {10.31030/3060918},
 }
 
-% TODO: ABB-Handbuecher zu Control Builder M und AC 800M eintragen
-% (Titel, Dokumentnummer, Version und Jahr aus dem PDF uebernehmen), z. B.:
-% @manual{abb-cbm,
-%   title     = {<Dokumentnummer>: <Titel des Handbuchs>, Version <x>},
-%   publisher = {ABB},
-%   year      = {<Jahr>},
-% }
+@manual{din-en-81-70,
+  title     = {DIN EN 81-70:2022-12: Sicherheitsregeln für die Konstruktion und den Einbau von Aufzügen -- Besondere Anwendungen für Personen- und Lastenaufzüge -- Teil 70: Zugänglichkeit von Aufzügen für Personen einschließlich Personen mit Behinderungen; Deutsche Fassung EN 81-70:2021+A1:2022},
+  publisher = {DIN Deutsches Institut für Normung},
+  year      = {2022},
+  doi       = {10.31030/3318578},
+}

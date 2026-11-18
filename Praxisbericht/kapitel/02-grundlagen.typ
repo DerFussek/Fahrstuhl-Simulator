@@ -8,7 +8,7 @@
 #todo[
   Zyklische Abarbeitung (Eingänge lesen, Programm, Ausgänge schreiben), Tasks mit
   verschiedenen Zykluszeiten (hier Fast, Normal, Slow). Sprachen der Norm
-  @iec61131-3, Programmorganisationseinheiten (Funktion, Funktionsbaustein, Programm),
+  @din-en-61131-3, Programmorganisationseinheiten (Funktion, Funktionsbaustein, Programm),
   Structured Text.
   Stichpunkte aus dem ABB-Seminar (Vault: 30 Wissen/800xA, "AC 800M Tasks und
   Speicher"): Zyklus = Input Copy, Code, Output Copy; Task = Intervall, Priorität
