@@ -1,5 +1,8 @@
-// Pflicht nach der Leitlinie Technik (10.11.2025); fehlt in der Word-Vorlage von 2016.
-= KI-Anmerkung <kap:ki>
+#import "../vorlage.typ": kapitel-ohne-nummer
+
+// Pflicht nach der Leitlinie Technik (10.11.2025); fehlt im T1000-Musterbericht (2019).
+// Wie das Literaturverzeichnis ohne Kapitelnummer. Verweis im Text: #link(<kap:ki>)[KI-Anmerkung]
+#kapitel-ohne-nummer[Anmerkung zur Nutzung von Künstlicher Intelligenz] <kap:ki>
 
 #figure(
   table(

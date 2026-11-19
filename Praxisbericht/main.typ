@@ -1,4 +1,5 @@
 // Praxisbericht Fahrstuhl-Steuerung
+// Form nach dem T1000-Musterbericht (Projektarbeit I, ABB Mannheim), seit 19.11.2026.
 // Kompilieren aus dem Repo-Wurzelordner (damit der Anhang den Code einlesen kann):
 //   typst watch --root . Praxisbericht/main.typ
 
@@ -10,21 +11,26 @@
   studiengang: [Elektrotechnik],
   studienrichtung: [Automation],
   autor: [Til Dussel],
-  abgabedatum: [20.11.2026],           // TODO: Abgabetermin bei der ABB erfragen
+  ort: [Mannheim],
+  abgabedatum: [20.11.2026],           // TODO: Abgabetermin bei der ABB erfragen; steht bei Sperrvermerk und Erklaerung
   bearbeitungszeitraum: [3 Wochen],   // TODO
   matrikelnummer: [Matrikelnummer],    // TODO
   kurs: [TEIT26A],                        // TODO
+  abteilung: none,                     // TODO: Abteilung bei der ABB, z. B. [Abteilungskürzel]
   firma: [ABB AG, Mannheim],                 // TODO: genaue Firmierung und Standort
   betreuer-firma: [Patrick Boldt],  // TODO
   gutachter-hochschule: none,          // Uebung der ABB: kein Gutachter der DHBW
 
-  // Nur einkommentieren, wenn die ABB einen Sperrvermerk verlangt:
-  // sperrvermerk: include "vorspann/sperrvermerk.typ",
-
+  // Reihenfolge im PDF wie im Muster: Sperrvermerk, Erklaerung, Taetigkeiten,
+  // Verzeichnisse, Abkuerzungen, Vorwort
+  sperrvermerk: include "vorspann/sperrvermerk.typ",
   erklaerung-ki: include "vorspann/erklaerung-ki.typ",
-  kurzfassung: include "vorspann/kurzfassung.typ",
-  vorwort: include "vorspann/vorwort.typ",   // optional, sonst none
+  taetigkeiten: include "vorspann/taetigkeiten.typ",
   abkuerzungen: include "vorspann/abkuerzungen.typ",
+  vorwort: include "vorspann/vorwort.typ",
+
+  // Im Muster gibt es keine Kurzzusammenfassung. Falls der Betreuer eine will:
+  // kurzfassung: include "vorspann/kurzfassung.typ",
 
   // Vor der Abgabe auf false setzen: blendet alle grauen Platzhalter aus
   zeige-entwurf: true,
@@ -39,8 +45,8 @@
 #include "kapitel/06-test.typ"
 #include "kapitel/07-zusammenfassung.typ"
 
-// Literaturverzeichnis als eigenes nummeriertes Kapitel, Stil IEEE
-= Literaturverzeichnis <kap:literatur>
+// Literaturverzeichnis wie im Muster ohne Kapitelnummer, Stil IEEE
+#kapitel-ohne-nummer[Literaturverzeichnis] <kap:literatur>
 #bibliography("literatur.bib", style: "ieee", title: none, full: false)
 
 #include "kapitel/08-ki-anmerkung.typ"

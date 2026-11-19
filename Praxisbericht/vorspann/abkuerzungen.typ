@@ -1,16 +1,14 @@
-// Abkuerzungen und Formelzeichen, Aufbau wie in der Word-Vorlage:
-// Symbol | Bedeutung | Einheit. Alphabetisch sortieren.
+// Abkuerzungsverzeichnis wie im T1000-Musterbericht: zweispaltig,
+// Abkuerzung | Bedeutung, alphabetisch sortiert.
 #table(
-  columns: (auto, 1fr, auto),
+  columns: (3.5cm, 1fr),
   stroke: none,
-  inset: (x: 6pt, y: 4pt),
-  table.header([*Symbol*], [*Bedeutung*], [*Einheit*]),
-  table.hline(stroke: 0.5pt),
-  [CBM], [Control Builder M (Engineering-Werkzeug von ABB)], [],
-  [CM], [Control Module], [],
-  [DHBW], [Duale Hochschule Baden-Württemberg], [],
-  [FB], [Function Block (Funktionsbaustein)], [],
-  [IEC], [International Electrotechnical Commission], [],
-  [SPS], [Speicherprogrammierbare Steuerung], [],
-  [ST], [Structured Text (Sprache der IEC 61131-3)], [],
+  inset: (x: 0pt, y: 6pt),
+  [CBM], [Control Builder M (Engineering-Werkzeug von ABB)],
+  [CM], [Control Module],
+  [DHBW], [Duale Hochschule Baden-Württemberg],
+  [FB], [Function Block (Funktionsbaustein)],
+  [IEC], [International Electrotechnical Commission],
+  [SPS], [Speicherprogrammierbare Steuerung],
+  [ST], [Structured Text (Sprache der IEC 61131-3)],
 )

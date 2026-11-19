@@ -1,8 +1,13 @@
 #import "../vorlage.typ": todo
 
-// Optional. Laut Vorlage der einzige Ort fuer Taetigkeitsbericht,
-// Selbstreflexion und Dank. Nicht gebraucht: in main.typ vorwort: none setzen.
+// Im T1000-Musterbericht Pflicht: Zeitraum, Firma, Abteilung, Betreuer,
+// worum es im Bericht geht, Dank.
 #todo[
-  Kurzer Tätigkeitsbericht: Wo und wie lange bei der ABB, was du dort gemacht hast,
-  was du gelernt hast. Optional ein Dank an Betreuer und Kollegen.
+  Wie im Musterbericht drei kurze Absätze:
+  - Rahmen: Die beschriebenen Aufgaben entstanden in der ersten Praxisphase vom TT.MM. bis
+    TT.MM.2026 bei der ABB AG in Mannheim, Abteilung …, unter Anleitung des betrieblichen
+    Betreuers Patrick Boldt.
+  - Inhalt: Worum es im Bericht geht (Entwicklung der Aufzugssteuerung in Structured Text,
+    Entwurf der Zielliste, Umsetzung und Test in der Simulation).
+  - Dank an Betreuer und Kollegen.
 ]
