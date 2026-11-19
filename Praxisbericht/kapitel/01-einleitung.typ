@@ -7,6 +7,9 @@
 
 == Aufgabenstellung
 #todo[
+  Die Praxisphase umfasste mehr als das Fahrstuhlprojekt (Einarbeitung, Seminar,
+  Lagerliste, Veranstaltungen); das steht in @kap:praxisphase. Hier nur die Aufgabe
+  des Fahrstuhlprojekts.
   Offene Aufgabe des Betreuers: eine Fahrstuhlsimulation mit AC~800M-Controllern
   bauen; die Anforderungen legt die Gruppe selbst fest. Ziel: eine in der
   Simulation lauffähige Steuerung für sechs Stockwerke (0 bis 5).
@@ -17,16 +20,15 @@
   Warum eine Aufzugssteuerung als Übungsprojekt? Rufe sammeln, Richtung halten,
   Tür sichern -- viele typische SPS-Aufgaben in einem überschaubaren System.
 
-  Projektorganisation und eigener Beitrag:
-  - Sechs Personen, drei Wochen (26.10. bis 13.11.2026)
-  - Für den Algorithmus der Zielliste zeitweise drei Untergruppen, danach wieder
-    eine Gruppe (Einzelheiten in @kap:vorgehen)
-  - Eigener Beitrag: Algorithmus der Zielliste als C++-Prototyp und dessen
+  Projektorganisation nur in einem Satz (Gruppe aus sechs Personen, drei Wochen);
+  den Ablauf und die Arbeitsteilung beschreibt @kap:vorgehen, hier nicht wiederholen.
+
+  Eigener Beitrag: Algorithmus der Zielliste als C++-Prototyp und dessen
     Übertragung nach Structured Text. Klar abgrenzen, was aus der Gruppe stammt.
 ]
 
 == Aufbau der Arbeit
 #todo[
-  Ein Satz pro Kapitel, mit Verweisen wie @kap:grundlagen, @kap:anforderungen,
+  Ein Satz pro Kapitel, mit Verweisen wie @kap:praxisphase, @kap:grundlagen, @kap:anforderungen,
   @kap:loesungsentwurf, @kap:umsetzung, @kap:test und @kap:zusammenfassung.
 ]
