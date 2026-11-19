@@ -37,9 +37,7 @@ Innerhalb der Anwendung `TD_Appl` ist die Steuerung auf die beiden Diagramme `DT
 Der Ablauf einer Fahrt ergibt sich aus dem Zusammenspiel von Rufverwaltung, Motor- und Türsteuerung. @abb:ablauf unterteilt die Rufbearbeitung und den Ablauf von Fahrt- und Türbewegungen in zwei Bereiche, die parallel arbeiten: Neue Rufe lassen sich somit auch während einer laufenden Fahrt oder einer Türbewegung verarbeiten. Die Zustände im Ablaufdiagramm existieren nicht als Zustandsvariablen, sondern dienen nur zur Veranschaulichung.
 
 *I. Ruf aufnehmen und einordnen* \ 
-Wird ein Innen- oder Außentaster betätigt, verarbeitet `TD_Gondel` die Anforderung als Ziel bestehend aus Stockwerk und Richtung. Bereits hinterlegte Rufe werden nicht erneut aufgenommen und sobald alle zehn Listenplätze belegt sind, werden keine weiteren Rufe mehr in die Zielliste einsortiert.
-
-Befindet sich die Gondel bereits auf dem angeforderten Stockwerk, wird der Ruf direkt durch ein Öffnen der Tür über `TuerAufCMD` bedient, ohne dafür einen neuen Listeneintrag anzulegen (A5,  @tab:anforderungen). Bei einer nicht leeren Zielliste gilt dies allerdings nur für Rufe in der aktuellen Fahrtrichtung; ein Ruf in Gegenrichtung wird stattdessen normal in die Zielliste einsortiert.
+Wird ein Innen- oder Außentaster betätigt, verarbeitet `TD_Gondel` die Anforderung als Ziel bestehend aus Stockwerk und Richtung und übergibt sie an `AddTargetToList`. Doppelte Rufe, eine volle Liste und Rufe im aktuellen Stockwerk werden dabei vorab gesondert behandelt; ein Ruf im aktuellen Stockwerk öffnet unter Umständen nur die Tür über `TuerAufCMD` (A4, A5, @tab:anforderungen).
 
 Alle übrigen Rufe werden nach dem Richtungsprinzip eingeordnet, welches in @kap:zielliste näher beschrieben wird. Da die Rufbearbeitung während des gesamten Betriebs aktiv bleibt, können neue Rufe auch während einer Fahrt die Reihenfolge der Ziele und damit das momentane Fahrtziel verändern.
 
@@ -58,7 +56,7 @@ Beim Erreichen der Zielposition stoppt der Motorcontroller die Gondel und aktivi
 
 Die Türsteuerung erkennt die Ankunft anhand der steigenden Flanke am Eingang `EnableTuer` und steuert das Öffnen der Kabinentür sowie der über `GondelPosExpo` ermittelten Schachttür an. Sobald die geöffnete Endlage erreicht ist, startet erneut die Offenhaltezeit von fünf Sekunden.
 
-Durch das Löschen des erreichten Ziels rücken die verbleibenden Listeneinträge auf. Die Tasterbeleuchtung wird entsprechend der aktualisierten Zielliste angepasst, sodass nur weiterhin offene Rufe angezeigt werden.
+Wie das erreichte Ziel aus der Liste gelöscht wird, beschreibt @kap:zielliste. Die Tasterbeleuchtung wird danach an die aktualisierte Zielliste angepasst, sodass nur weiterhin offene Rufe angezeigt werden.
 
 *V. Weitere Ziele bearbeiten oder in den Leerlauf wechseln* \
 Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fahrtziel benutzt, woraufhin nach dem Schließen der Türen und erneuter Fahrtfreigabe die nächste Fahrt beginnt. Ist die Zielliste hingegen leer, bleibt die Gondel nach dem Schließen der Türen im Leerlauf, bis ein neuer Ruf eingeht.
@@ -67,9 +65,7 @@ Sind noch weitere Ziele hinterlegt, wird das nächste Listenelement als neues Fa
 == Lösungsvarianten für die Rufverwaltung <kap:varianten>
 
 Die Rufverwaltung legt fest, in welcher Reihenfolge die Gondel die gedrückten
-Taster bedient. Alle Ansätze müssen dabei das Richtungsprinzip (A3, @tab:anforderungen) einhalten:
-Rufe in Fahrtrichtung werden auf dem Weg mitgenommen, Rufe in Gegenrichtung erst
-nach dem Richtungswechsel. In unserer Gruppe wurden dafür vier Ansätze diskutiert,
+Taster bedient. Alle Ansätze müssen dabei das Richtungsprinzip (A3, @tab:anforderungen, @kap:sammelsteuerung) einhalten. In unserer Gruppe wurden dafür vier Ansätze diskutiert,
 die sich vor allem darin unterscheiden, ob und wie die Rufe in einer Liste
 gespeichert und einsortiert werden.
 
@@ -177,7 +173,7 @@ Die Marker werden bei jedem neuen Ruf neu bestimmt und gelten nur für einen Dur
 *Einsortieren.* \
 Die Funktion ordnet den Ruf durch zwei Fragen in einen Abschnitt ein: Zeigt der Ruf in Startrichtung und ist
 dieser noch erreichbar? Ein Ruf in Gegenrichtung wird in Abschnitt 2 einsortiert, ein noch erreichbarer Ruf in Fahrtrichtung in
-Abschnitt 2 und ein nicht erreichbarer in Fahrtrichtung in Abschnitt 3.
+Abschnitt 1 und ein nicht erreichbarer in Fahrtrichtung in Abschnitt 3.
 Dazu benutzt `AddTargetToList` zwei Hilfsfunktionen. `SortBetweenLimits` sortiert einen Abschnitt entsprechend nach Fahrtrichtung
 auf- oder absteigend und `InsertBetweenLimits` fügt den Ruf ans Ende des Abschnitts an und sortiert ihn danach mittels `SortBetweenLimits`.
 Gibt es weder Abschnitt 2 noch 3, wird der Ruf ans Ende der Liste gehängt und bildet somit beim nächsten Zyklus einen neuen Abschnitt.

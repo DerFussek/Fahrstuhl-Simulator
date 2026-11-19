@@ -17,11 +17,10 @@
   Warum eine Aufzugssteuerung als Übungsprojekt? Rufe sammeln, Richtung halten,
   Tür sichern -- viele typische SPS-Aufgaben in einem überschaubaren System.
 
-  Projektorganisation und eigener Beitrag:
-  - Sechs Personen, drei Wochen (26.10. bis 13.11.2026)
-  - Für den Algorithmus der Zielliste zeitweise drei Untergruppen, danach wieder
-    eine Gruppe (Einzelheiten in @kap:vorgehen)
-  - Eigener Beitrag: Algorithmus der Zielliste als C++-Prototyp und dessen
+  Projektorganisation nur in einem Satz (Gruppe aus sechs Personen, drei Wochen);
+  den Ablauf und die Arbeitsteilung beschreibt @kap:vorgehen, hier nicht wiederholen.
+
+  Eigener Beitrag: Algorithmus der Zielliste als C++-Prototyp und dessen
     Übertragung nach Structured Text. Klar abgrenzen, was aus der Gruppe stammt.
 ]
 

@@ -10,7 +10,7 @@
     table.header([*KI-Werkzeug*], [*Wofür eingesetzt*], [*Kapitel*]),
     [Claude (Anthropic)], [Portierung der Ziellisten-Logik von C++ nach Structured Text], [5],
     [Claude (Anthropic)], [Gliederung und Struktur des Berichts], [--],
-    [], [], [],
+    [Claude (Anthropic)], [Prüfung von `AddTargetToList` mit Testszenarien und Zufallsläufen], [6],
   ),
   caption: [Einsatz von KI-Werkzeugen],
 ) <tab:ki>
