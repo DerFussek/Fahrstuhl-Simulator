@@ -18,7 +18,7 @@
   kurs: [TEIT26A],                        // TODO
   abteilung: none,                     // TODO: Abteilung bei der ABB, z. B. [Abteilungskürzel]
   firma: [ABB AG, Mannheim],                 // TODO: genaue Firmierung und Standort
-  betreuer-firma: [Patrick Boldt],  // TODO
+  betreuer-firma: [Joachim A. Müller],  // TODO
   gutachter-hochschule: none,          // Uebung der ABB: kein Gutachter der DHBW
 
   // Reihenfolge im PDF wie im Muster: Sperrvermerk, Erklaerung, Taetigkeiten,

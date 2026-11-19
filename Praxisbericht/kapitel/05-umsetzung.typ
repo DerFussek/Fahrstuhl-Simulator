@@ -47,36 +47,41 @@ Zudem wurden die Einträge in `TargetCount` zwischen den verschiedenen Funktions
 
 Die Logik selbst musste bei der Übertragung nicht geändert werden. Die Fehler entstanden ausschließlich aus den Eigenheiten von Control Builder M.
 
-== Bausteine in Control Builder M
-#todo[
-  Projektstruktur in ein bis zwei Sätzen (Library `DT_FahrstuhlLib`, Application
-  `TD_Appl`, Tasks Fast/Normal/Slow). Dann `AddTargetToList` (Aufgabe, Ein- und
-  Ausgänge, interessanter Ausschnitt) und `DT_Door` (Selbsthaltung, Vorrang von
-  Lichtschranke und Tür-auf-Taste, automatisches Schließen nach 5~s mit dem
-  CBM-Datentyp `Timer`). Zeilenbereich unten anpassen (zeilen: (von, bis)).
-]
-
-// Beispiel: Ausschnitt aus der Datei im Repo. Zeilen anpassen.
-#code-abbildung(
-  "../ControlBuilder/DT_FahrstuhlLib/FunctionBlockTypes/AddTargetToList.st",
-  [Ausschnitt aus dem Funktionsbaustein AddTargetToList, eigene Darstellung],
-  zeilen: (1, 25),
-) <abb:addtarget-code>
+== Projektstruktur und Türsteuerung in Control Builder M <kap:bausteine>
+Das Projekt in Control Builder M besteht aus der Bibliothek `DT_FahrstuhlLib`, der Application `TD_Appl` und dem Soft Controller `Controller_TD`. In der Bibliothek liegen die Typen aller Bausteine, also der Datentyp `Target`, die vier Function Blocks der Zielliste und die sieben Control Modules. In `TD_Appl` werden diese Typen instanziiert und in den beiden Diagrammen `DT_Gondel` und `DT_Door` verschaltet (@kap:loesungsentwurf). Die Application läuft in der Task `Normal` des Controllers. @tab:bausteine ordnet die Bausteine ihrem Typ und ihrem Diagramm zu; ihre Aufgaben beschreibt @abb:systemaufbau.
 
 #figure(
   table(
-    columns: (auto, 1fr),
-    table.header([*Baustein*], [*Aufgabe*]),
-    [`TD_Gondel`], [Sammelt Innen- und Außenrufe, liefert Zielstock, `HatZiel` und Rufliste],
-    [`TD_MotorController`], [Fährt die Gondel in 10er-Pixelschritten zum Zielstock, nur bei geschlossener Tür],
-    [`InsertBetweenLimits`, `SortBetweenLimits`], [Fügen ein Ziel sortiert in einen Abschnitt der Zielliste ein],
-    [`TD_RemoveAtIndex`], [Löscht ein erreichtes Ziel aus der Liste],
-    [`TD_Door_Pos`, `TD_Shaftdoor_Pos`], [Bewegen Kabinen- und Schachttüren in der Visualisierung],
-    [`TD_LedSteuerung`], [Schaltet die Taster-LEDs für offene Rufe],
-    [`TD_ResetTaster`], [Setzt alle Taster zurück],
+    columns: (1fr, auto, auto),
+    align: left,
+    table.header([*Baustein*], [*Typ*], [*Instanziiert in*]),
+    [`TD_Gondel`, `TD_MotorController`, \ `TD_ResetTaster`, `TD_LedSteuerung`], [Control Module], [Diagramm `DT_Gondel`],
+    [`DT_Door`, `TD_Door_Pos`, `TD_Shaftdoor_Pos`], [Control Module], [Diagramm `DT_Door`],
+    [`AddTargetToList`, `TD_RemoveAtIndex`], [Function Block], [`TD_Gondel`],
+    [`InsertBetweenLimits`, `SortBetweenLimits`], [Function Block], [`AddTargetToList`],
   ),
-  caption: [Weitere Bausteine der Steuerung],
+  caption: [Typ und Einbindung der Bausteine in `TD_Appl`],
 ) <tab:bausteine>
+
+Wie die Zielliste in Structured Text umgesetzt wurde, beschreibt bereits @kap:uebertragung. Im Folgenden wird deshalb nur die Türsteuerung `DT_Door` genauer betrachtet, da sie die sicherheitsrelevanten Anforderungen A6 bis A8 (@tab:anforderungen) erfüllt. Ihr Verhalten wurde in @abb:ablauf beschrieben; hier geht es darum, wie es im Code umgesetzt ist. Der folgende Ausschnitt zeigt den Kern des Bausteins.
+
+#code-abbildung(
+  "../ControlBuilder/DT_FahrstuhlLib/ControlModuleTypes/DT_Door.st",
+  [Öffnen, Offenhaltezeit und Schließen im Control Module DT_Door, eigene Darstellung],
+  zeilen: (62, 89),
+) <abb:door-code>
+
+*Flanken.* \
+Die Ankunft der Gondel und eine Öffnungsanforderung von `TD_Gondel` liegen als Dauersignal an. Damit die Tür nicht bei jedem Zyklus erneut geöffnet wird, wertet `DT_Door` nur die steigenden Flanken aus. Dazu speichert der Baustein den Wert aus dem letzten Zyklus in `EnableTuerAlt` bzw. `TuerAufRequestAlt` und bildet daraus die Signale `Angekommen` und `NeuerAufRequest`.
+
+*Selbsthaltung.* \
+Die Taster und die Lichtschranke sind nur kurz aktiv, die Tür braucht aber mehrere Zyklen, um ihre Endlage zu erreichen. Deshalb werden `Oeffnen` und `Schliessen` als Merker mit Selbsthaltung umgesetzt: Ein Ereignis setzt den Merker, und erst das Erreichen der jeweiligen Endlage setzt ihn wieder zurück. Beim Öffnen wird `Schliessen` gleichzeitig zurückgesetzt, außerdem darf `Schliessen` nur gesetzt werden, solange `Oeffnen` nicht aktiv ist. Dadurch hat das Öffnen immer Vorrang, und ein laufender Schließvorgang wird von der Lichtschranke oder dem Tür-auf-Taster sofort abgebrochen (A7). Die Endlagen von Kabinen- und Schachttür werden vorher mit UND zu `EndlageAuf` und `EndlageZu` zusammengefasst, sodass eine Bewegung erst abgeschlossen ist, wenn beide Türen ihre Endlage erreicht haben.
+
+*Offenhaltezeit.* \
+Für die Offenhaltezeit (A8) wird der Datentyp `Timer` aus der Bibliothek von Control Builder M verwendet. Er wird mit der Funktion `Timer` gesteuert, die abgelaufene Zeit liefert `TimerElapsed`. Der Timer läuft nur, solange die Tür offen ist und weder die Lichtschranke noch der Tür-auf-Taster aktiv ist. Ist die eingestellte Zeit `TimerTuerZu` von 5~s erreicht, wird `OffenZeitAbgelaufen` gesetzt und löst das Schließen aus, genau wie der Tür-zu-Taster.
+
+*Ausgänge.* \
+Aus den Merkern werden zum Schluss die Motorbefehle `TuerAufCmd`, `TuerZuCmd`, `TuerAufSchacht` und `TuerZuSchacht` für Kabinen- und Schachttür gebildet, die jeweils an der eigenen Endlage abschalten. Die Fahrtfreigabe `EnableGondel := EndlageZu and not Oeffnen` ist nur aktiv, wenn beide Türen geschlossen sind und kein Öffnen ansteht (A6).
 
 == Visualisierung <kap:visualisierung>
 #todo[
