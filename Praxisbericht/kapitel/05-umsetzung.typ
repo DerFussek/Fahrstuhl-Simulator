@@ -61,7 +61,19 @@ Das Projekt in Control Builder M besteht aus der Bibliothek `DT_FahrstuhlLib`, d
   caption: [Typ und Einbindung der Bausteine in `TD_Appl`],
 ) <tab:bausteine>
 
-Wie die Zielliste in Structured Text umgesetzt wurde, beschreibt bereits @kap:uebertragung. Im Folgenden wird deshalb nur die Türsteuerung `DT_Door` genauer betrachtet, da sie die sicherheitsrelevanten Anforderungen A6 bis A8 (@tab:anforderungen) erfüllt. Ihr Verhalten wurde in @abb:ablauf beschrieben; hier geht es darum, wie es im Code umgesetzt ist. Der folgende Ausschnitt zeigt den Kern des Bausteins.
+*Rufe in `TD_Gondel`.* \
+`TD_Gondel` schreibt die Zustände der 16 Taster in jedem Zyklus mit `PutArray` in die drei ArrayObjects `vAnfragenInnen`, `vAnfragenAussenHoch` und `vAnfragenAussenRunter`. Eine `for`-Schleife über die sechs Stockwerke liest sie mit `GetArray` wieder aus und erzeugt für jeden gedrückten Taster ein Ziel vom Datentyp `Target`. Bei einem Innenruf ergibt sich die Richtung aus dem Vergleich von Stockwerk und Gondelposition, bei einem Außenruf aus dem Taster selbst. Das Ziel übergibt `TD_Gondel` an `AddTargetToList`; wie es dort einsortiert wird, beschreibt @kap:zielliste, warum Liste und Zähler getrennte Ein- und Ausgänge haben, @kap:uebertragung. Der folgende Ausschnitt zeigt die Schleife für die Innentaster, die Außentaster werden genauso behandelt.
+
+#code-abbildung(
+  "../ControlBuilder/DT_FahrstuhlLib/ControlModuleTypes/TD_Gondel.st",
+  [Erfassen der Innenrufe im Control Module TD_Gondel, eigene Darstellung],
+  zeilen: (153, 182),
+) <abb:gondel-code>
+
+Liegt am Eingang `RemoveFirstEntry` die Ankunftsmeldung an und steht die Gondel im Stockwerk des ersten Ziels, löscht `TD_Gondel` diesen Eintrag mit `TD_RemoveAtIndex` und fordert über `TuerAufCMD` das Öffnen der Tür an. `HatZiel` ist aktiv, solange die Liste nicht leer ist; Liste und Zähler gehen über `TargetListOut` und `TargetCountOut` an `TD_LedSteuerung` (@abb:systemaufbau).
+
+*Türsteuerung `DT_Door`.* \
+Die Türsteuerung wird genauer betrachtet, da sie die sicherheitsrelevanten Anforderungen A6 bis A8 (@tab:anforderungen) erfüllt. Ihr Verhalten wurde in @abb:ablauf beschrieben; hier geht es darum, wie es im Code umgesetzt ist. Der folgende Ausschnitt zeigt den Kern des Bausteins.
 
 #code-abbildung(
   "../ControlBuilder/DT_FahrstuhlLib/ControlModuleTypes/DT_Door.st",
