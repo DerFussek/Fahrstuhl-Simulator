@@ -6,11 +6,11 @@
 = Umsetzung <kap:umsetzung>
 
 == Vorgehen und Arbeitsteilung <kap:vorgehen>
-Die Gruppe aus sechs Personen arbeitete drei Wochen (26.10. bis 13.11.2026) an dem Projekt. Da die Aufgabe offen gestellt war, dienten die ersten drei bis vier Tage dazu, die Anforderungen festzulegen. Dazu notierte sich jedes Gruppenmitglied für sich, wie ein Aufzug grundlegend aufgebaut ist und welche Funktionen er erfüllen soll. Die Listen wurden anschließend zusammengetragen und in der Gruppe diskutiert. Am Whiteboard skizzierte die Gruppe die Anlage, sammelte die Regeln der Rufabarbeitung und zeichnete die Abläufe als Diagramme (@anh:skizzen). Daraus entstanden die Anforderungen und der Aufbau des simulierten Aufzugs (@kap:anforderungen). Anschließend wurde auf Vorgabe des Betreuers zuerst die Türsteuerung `DT_Door` gemeinsam umgesetzt, damit die Gruppe den Control Builder und die Sprache Structured Text kennenlernte. Ab Woche 2 plante die Gruppe eigenständig und hielt dabei den Ist- und Soll-Stand sowie die jeweiligen Aufgaben des Tages fest.
+Die Gruppe aus sechs Personen arbeitete drei Wochen (26.10. bis 13.11.2026) an dem Projekt. Da die Aufgabe offen gestellt war, dienten die ersten drei bis vier Tage dazu, die Anforderungen festzulegen. Dazu sammelte zunächst jedes Gruppenmitglied für sich Ideen, danach skizzierte die Gruppe die Anlage, sammelte die Regeln der Rufabarbeitung und zeichnete die Abläufe als Diagramme (@anh:skizzen). Daraus entstanden die Anforderungen und der Aufbau des simulierten Aufzugs (@kap:anforderungen). Anschließend wurde auf Vorgabe des Betreuers zuerst die Türsteuerung `DT_Door` gemeinsam umgesetzt, damit die Gruppe den Control Builder und die Sprache Structured Text kennenlernte. Ab Woche 2 plante die Gruppe eigenständig und hielt dabei den Ist- und Soll-Stand sowie die jeweiligen Aufgaben des Tages fest.
 
 In der zweiten Woche wurde die Logik für den Sortieralgorithmus der Zielliste konzipiert. Der gemeinsame Versuch, diesen direkt in Structured Text zu entwickeln, scheiterte jedoch. Auf Rat des Betreuers teilte sich die Gruppe in drei Untergruppen auf, die jeweils eine eigene Lösung für den Sortieralgorithmus in einer Programmiersprache ihrer Wahl umsetzten und dafür Testfälle schrieben. Anschließend testete die Gruppe die Lösungen gegenseitig und wählte die beste Lösung aus. Diese wurde daraufhin mit einem KI-Werkzeug nach Structured Text migriert (#link(<kap:ki>)[KI-Anmerkung], @kap:uebertragung).
 
-Die letzte Woche wurde dazu verwendet, die übrigen Bausteine zu realisieren. Der Algorithmus wurde als Baustein eingebunden, die Taster wurden angeschlossen und sowohl die LED-Steuerung als auch die Schachttüren wurden umgesetzt. Zudem wurden passende Grafikbilder erstellt (@kap:visualisierung). Diese machten sichtbar, ob die Steuerung wie gewünscht arbeitete, und stellten somit eine große Hilfe dar, da die Programme zuvor im Editor kaum kontrollierbar waren.
+Die letzte Woche wurde dazu verwendet, die übrigen Bausteine zu realisieren. Der Algorithmus wurde als Baustein eingebunden, die Taster wurden angeschlossen und sowohl die LED-Steuerung als auch die Schachttüren wurden umgesetzt. Zudem wurden passende Grafikbilder erstellt (@kap:visualisierung). Sie machten erstmals sichtbar, ob die Steuerung wie gewünscht arbeitete, was im Editor zuvor kaum zu kontrollieren war.
 
 == C++-Prototyp der Zielliste <kap:prototyp>
 Die Untergruppe, dessen Algorithmus am ende umgesetzt wurden, entwickelte diesen zunächst in C++, da sie diese Sprache am besten kannten.
@@ -23,11 +23,8 @@ Da der Prototyp nur aus einfachen Schleifen und Listenzugriffen bestand, erleich
 @kap:uebertragung beschreibt die Anpassungen die trotzdem nötigwaren, damit der Algorithmus fehlerfrei im Structured Text funktionierte.
 
 == Übertragung nach Structured Text <kap:uebertragung>
-Für die Übertragung wurde der C++-Code für die Listensortierung an das KI-Werkzeug Claude übergeben (#link(<kap:ki>)[KI-Anmerkung]), das diesen in Structured Text umwandelte. Dabei blieben die grundlegenden Funktionen der C++-Version erhalten, sodass jede Funktion in C++ einem eigenen Funktionsbaustein in ControlBuilderM entspricht.\
-Die erste Version der ST-Version griff noch mit eckigen Klammern auf Listen zu, zum Beispiel `TargetListe[i]`. In der Structured-Text-Version von ControlBuilderM gibt es diese Zugriffsmethode jedoch nicht und man muss mit den Funktionen `GetArray`, `PutArray` und `InsertArray` auf die Listen zugreifen. Daraufhin gab die Gruppe Claude Screenshots der Dokumentation zu diesen Funktionen, sodass die zweite Version mit diesen arbeitete und anschließend vom Betreuer in die virtuelle Maschine kopiert wurde.
-Dadurch fielen aber weitere Fehler auf; die Indizes begannen mit 0, wie es bei C++ üblich ist, während diese in ControlBuilderM mit 1 starten. Aus diesem Grund mussten die Marker für „kein Richtungswechsel“ von -1 auf 0 abgeändert werden.
-Zudem wurden die Einträge in `TargetCount` zwischen den verschiedenen Funktionsbausteinen nicht richtig weitergegeben; die Gruppe behob dies, indem sie jeweils die Liste und den Zähler einmal als Eingang (`TargetCountIn`, `TargetListIn`) und einmal als Ausgang (`TargetCount`, `TargetList`) anlegte. Zum Schluss wurde noch ein Schutz gegen eine volle Liste ergänzt, da `ArrayObjects` anders als ein `std::vector` nicht mitwächst und sonst `InsertArray` das letzte Element verliert.
-@tab:uebertragung stellt die Änderungen noch einmal übersichtlich dar.
+
+Für die Übertragung wurde der C++-Code an das KI-Werkzeug Claude übergeben (#link(<kap:ki>)[KI-Anmerkung]), das ihn in Structured Text umwandelte; jede C++-Funktion entspricht dabei einem Function Block. Die erste Version griff noch mit eckigen Klammern wie `TargetList[i]` auf Listen zu, was Control Builder M nicht kennt. Mit Screenshots der Dokumentation zu `GetArray`, `PutArray` und `InsertArray` entstand eine zweite Version, die der Betreuer in die virtuelle Maschine kopierte. Dort fielen drei weitere Fehler auf: Die Indizes begannen wie in C++ bei 0 statt bei 1, der Zähler `TargetCount` wurde zwischen den Bausteinen nicht richtig weitergegeben, und `InsertArray` verlor bei voller Liste das letzte Element, weil ein `ArrayObject` anders als ein `std::vector` nicht mitwächst. @tab:uebertragung fasst zusammen, wie diese Unterschiede gelöst wurden.
 
 #figure(
   table(
@@ -39,59 +36,30 @@ Zudem wurden die Einträge in `TargetCount` zwischen den verschiedenen Funktions
     [Richtung], [`enum Direction`], [`bool` (true = rauf)],
     [Liste als Parameter], [Referenz (`&`)], [Getrennte Ein- und Ausgänge (`TargetListIn`, `TargetList`)],
     [Bausteinart], [Funktionen], [Function Blocks],
+    [Volle Liste], [`std::vector` wächst mit], [Abfrage vor `InsertArray`],
   ),
   caption: [Unterschiede zwischen C++-Prototyp und Structured Text],
 ) <tab:uebertragung>
 
-Die Logik selbst musste bei der Übertragung nicht geändert werden. Die Fehler entstanden ausschließlich aus den Eigenheiten von Control Builder M.
+Die Logik selbst musste nicht geändert werden; alle Fehler entstanden aus den Eigenheiten von Control Builder M.
 
 == Projektstruktur und Türsteuerung in Control Builder M <kap:bausteine>
-Das Projekt in Control Builder M besteht aus der Bibliothek `DT_FahrstuhlLib`, der Application `TD_Appl` und dem Soft Controller `Controller_TD`. In der Bibliothek liegen die Typen aller Bausteine, also der Datentyp `Target`, die vier Function Blocks der Zielliste und die sieben Control Modules. In `TD_Appl` werden diese Typen instanziiert und in den beiden Diagrammen `DT_Gondel` und `DT_Door` verschaltet (@kap:loesungsentwurf). Die Application läuft in der Task `Normal` des Controllers. @tab:bausteine ordnet die Bausteine ihrem Typ und ihrem Diagramm zu; ihre Aufgaben beschreibt @abb:systemaufbau.
 
-#figure(
-  table(
-    columns: (1fr, auto, auto),
-    align: left,
-    table.header([*Baustein*], [*Typ*], [*Instanziiert in*]),
-    [`TD_Gondel`, `TD_MotorController`, \ `TD_ResetTaster`, `TD_LedSteuerung`], [Control Module], [Diagramm `DT_Gondel`],
-    [`DT_Door`, `TD_Door_Pos`, `TD_Shaftdoor_Pos`], [Control Module], [Diagramm `DT_Door`],
-    [`AddTargetToList`, `TD_RemoveAtIndex`], [Function Block], [`TD_Gondel`],
-    [`InsertBetweenLimits`, `SortBetweenLimits`], [Function Block], [`AddTargetToList`],
-  ),
-  caption: [Typ und Einbindung der Bausteine in `TD_Appl`],
-) <tab:bausteine>
+Das Projekt besteht aus der Bibliothek `DT_FahrstuhlLib` mit den Typen aller Bausteine, der Application `TD_Appl` und dem Soft Controller `Controller_TD`, in dessen Task `Normal` die Application läuft. Die vier Function Blocks der Zielliste werden in `TD_Gondel` bzw. `AddTargetToList` aufgerufen, alle übrigen Bausteine sind Control Modules in den Diagrammen `DT_Gondel` und `DT_Door` (@abb:systemaufbau). Der vollständige Code steht in @anh:st.
 
 *Rufe in `TD_Gondel`.* \
-`TD_Gondel` schreibt die Zustände der 16 Taster in jedem Zyklus mit `PutArray` in die drei ArrayObjects `vAnfragenInnen`, `vAnfragenAussenHoch` und `vAnfragenAussenRunter`. Eine `for`-Schleife über die sechs Stockwerke liest sie mit `GetArray` wieder aus und erzeugt für jeden gedrückten Taster ein Ziel vom Datentyp `Target`. Bei einem Innenruf ergibt sich die Richtung aus dem Vergleich von Stockwerk und Gondelposition, bei einem Außenruf aus dem Taster selbst. Das Ziel übergibt `TD_Gondel` an `AddTargetToList`; wie es dort einsortiert wird, beschreibt @kap:zielliste, warum Liste und Zähler getrennte Ein- und Ausgänge haben, @kap:uebertragung. Der folgende Ausschnitt zeigt die Schleife für die Innentaster, die Außentaster werden genauso behandelt.
-
-#code-abbildung(
-  "../ControlBuilder/DT_FahrstuhlLib/ControlModuleTypes/TD_Gondel.st",
-  [Erfassen der Innenrufe im Control Module TD_Gondel, eigene Darstellung],
-  zeilen: (153, 182),
-) <abb:gondel-code>
-
-Liegt am Eingang `RemoveFirstEntry` die Ankunftsmeldung an und steht die Gondel im Stockwerk des ersten Ziels, löscht `TD_Gondel` diesen Eintrag mit `TD_RemoveAtIndex` und fordert über `TuerAufCMD` das Öffnen der Tür an. `HatZiel` ist aktiv, solange die Liste nicht leer ist; Liste und Zähler gehen über `TargetListOut` und `TargetCountOut` an `TD_LedSteuerung` (@abb:systemaufbau).
+`TD_Gondel` schreibt die Zustände der 16 Taster in jedem Zyklus mit `PutArray` in drei ArrayObjects. Eine `for`-Schleife über die Stockwerke liest sie mit `GetArray` aus, bildet für jeden gedrückten Taster ein `Target` und übergibt es an `AddTargetToList` (@kap:zielliste, @kap:uebertragung). Die Richtung eines Innenrufs ergibt sich aus dem Vergleich von Stockwerk und Gondelposition.
 
 *Türsteuerung `DT_Door`.* \
-Die Türsteuerung wird genauer betrachtet, da sie die sicherheitsrelevanten Anforderungen A6 bis A8 (@tab:anforderungen) erfüllt. Ihr Verhalten wurde in @abb:ablauf beschrieben; hier geht es darum, wie es im Code umgesetzt ist. Der folgende Ausschnitt zeigt den Kern des Bausteins.
+`DT_Door` erfüllt die sicherheitsrelevanten Anforderungen A6 bis A8; ihr Verhalten beschreibt @abb:ablauf. Weil Taster und Lichtschranke nur kurz aktiv sind, die Tür aber mehrere Zyklen bis zur Endlage braucht, sind `Oeffnen` und `Schliessen` als Merker mit Selbsthaltung umgesetzt: Ein Ereignis setzt den Merker, erst die Endlage setzt ihn zurück. Der folgende Ausschnitt zeigt das Öffnen. Es setzt `Schliessen` sofort zurück und hat damit Vorrang, sodass Lichtschranke oder Tür-auf-Taster einen Schließvorgang abbrechen (A7).
 
 #code-abbildung(
   "../ControlBuilder/DT_FahrstuhlLib/ControlModuleTypes/DT_Door.st",
-  [Öffnen, Offenhaltezeit und Schließen im Control Module DT_Door, eigene Darstellung],
-  zeilen: (62, 89),
+  [Öffnen mit Selbsthaltung im Control Module DT_Door, eigene Darstellung],
+  zeilen: (62, 71),
 ) <abb:door-code>
 
-*Flanken.* \
-Die Ankunft der Gondel und eine Öffnungsanforderung von `TD_Gondel` liegen als Dauersignal an. Damit die Tür nicht bei jedem Zyklus erneut geöffnet wird, wertet `DT_Door` nur die steigenden Flanken aus. Dazu speichert der Baustein den Wert aus dem letzten Zyklus in `EnableTuerAlt` bzw. `TuerAufRequestAlt` und bildet daraus die Signale `Angekommen` und `NeuerAufRequest`.
-
-*Selbsthaltung.* \
-Die Taster und die Lichtschranke sind nur kurz aktiv, die Tür braucht aber mehrere Zyklen, um ihre Endlage zu erreichen. Deshalb werden `Oeffnen` und `Schliessen` als Merker mit Selbsthaltung umgesetzt: Ein Ereignis setzt den Merker, und erst das Erreichen der jeweiligen Endlage setzt ihn wieder zurück. Beim Öffnen wird `Schliessen` gleichzeitig zurückgesetzt, außerdem darf `Schliessen` nur gesetzt werden, solange `Oeffnen` nicht aktiv ist. Dadurch hat das Öffnen immer Vorrang, und ein laufender Schließvorgang wird von der Lichtschranke oder dem Tür-auf-Taster sofort abgebrochen (A7). Die Endlagen von Kabinen- und Schachttür werden vorher mit UND zu `EndlageAuf` und `EndlageZu` zusammengefasst, sodass eine Bewegung erst abgeschlossen ist, wenn beide Türen ihre Endlage erreicht haben.
-
-*Offenhaltezeit.* \
-Für die Offenhaltezeit (A8) wird der Datentyp `Timer` aus der Bibliothek von Control Builder M verwendet. Er wird mit der Funktion `Timer` gesteuert, die abgelaufene Zeit liefert `TimerElapsed`. Der Timer läuft nur, solange die Tür offen ist und weder die Lichtschranke noch der Tür-auf-Taster aktiv ist. Ist die eingestellte Zeit `TimerTuerZu` von 5~s erreicht, wird `OffenZeitAbgelaufen` gesetzt und löst das Schließen aus, genau wie der Tür-zu-Taster.
-
-*Ausgänge.* \
-Aus den Merkern werden zum Schluss die Motorbefehle `TuerAufCmd`, `TuerZuCmd`, `TuerAufSchacht` und `TuerZuSchacht` für Kabinen- und Schachttür gebildet, die jeweils an der eigenen Endlage abschalten. Die Fahrtfreigabe `EnableGondel := EndlageZu and not Oeffnen` ist nur aktiv, wenn beide Türen geschlossen sind und kein Öffnen ansteht (A6).
+Ankunft und Öffnungsanforderung wertet der Baustein nur als steigende Flanke aus (`Angekommen`, `NeuerAufRequest`), damit die Tür nicht in jedem Zyklus neu öffnet. Die Offenhaltezeit von 5~s (A8) misst der Datentyp `Timer` aus Control Builder M; er wird angehalten, solange Lichtschranke oder Tür-auf-Taster aktiv sind. Die Fahrtfreigabe `EnableGondel := EndlageZu and not Oeffnen` ist nur bei geschlossenen Türen ohne anstehendes Öffnen aktiv (A6).
 
 == Visualisierung <kap:visualisierung>
 #todo[
