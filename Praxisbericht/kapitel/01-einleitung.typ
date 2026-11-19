@@ -7,6 +7,9 @@
 
 == Aufgabenstellung
 #todo[
+  Die Praxisphase umfasste mehr als das Fahrstuhlprojekt (Einarbeitung, Seminar,
+  Lagerliste, Veranstaltungen); das steht in @kap:praxisphase. Hier nur die Aufgabe
+  des Fahrstuhlprojekts.
   Offene Aufgabe des Betreuers: eine Fahrstuhlsimulation mit AC~800M-Controllern
   bauen; die Anforderungen legt die Gruppe selbst fest. Ziel: eine in der
   Simulation lauffähige Steuerung für sechs Stockwerke (0 bis 5).
@@ -26,6 +29,6 @@
 
 == Aufbau der Arbeit
 #todo[
-  Ein Satz pro Kapitel, mit Verweisen wie @kap:grundlagen, @kap:anforderungen,
+  Ein Satz pro Kapitel, mit Verweisen wie @kap:praxisphase, @kap:grundlagen, @kap:anforderungen,
   @kap:loesungsentwurf, @kap:umsetzung, @kap:test und @kap:zusammenfassung.
 ]

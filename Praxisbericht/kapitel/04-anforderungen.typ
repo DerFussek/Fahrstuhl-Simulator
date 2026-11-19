@@ -10,7 +10,7 @@ Die Anforderungen legte die Gruppe in der ersten Projektwoche selbst fest, da di
 == Aufbau des simulierten Aufzugs <kap:aufbau>
 #todo[
   Einzige Stelle, an der Sensoren, Aktoren und Bedienelemente aufgezählt werden;
-  5.1 und 5.5 verweisen hierher.
+  6.1 und 6.5 verweisen hierher.
   Schacht mit sechs Stockwerken, Kabine, Kabinentür und sechs Schachttüren,
   Endlagen und Lichtschranke, Außentaster auf/ab mit Beleuchtung, Bedienfeld in
   der Kabine. Alles nur simuliert, keine echte Hardware.

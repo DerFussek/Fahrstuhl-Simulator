@@ -36,7 +36,7 @@
 == Sammelsteuerung von Aufzügen <kap:sammelsteuerung>
 #todo[
   Einzelsteuerung vs. Sammelsteuerung, Richtungsprinzip (erst alle Rufe in
-  Fahrtrichtung, dann umkehren; einzige allgemeine Erklärung im Bericht, 3.3 und 4.3
+  Fahrtrichtung, dann umkehren; einzige allgemeine Erklärung im Bericht, 4.3 und 5.3
   verweisen hierher), Sicherheitsfunktionen der Tür. Eventuell
   DIN EN 81-20 @din-en-81-20 als Beleg für Türanforderungen.
 ]

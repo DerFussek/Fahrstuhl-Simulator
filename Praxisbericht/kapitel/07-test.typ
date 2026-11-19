@@ -38,7 +38,7 @@ Dabei deckten die Tests drei Fehler auf. Einmal wurde die Fahrrichtung aus der R
 
 == Bewertung der Ergebnisse <kap:bewertung>
 #todo[
-  Die Details zur Erfüllung der Anforderungen stehen nur hier; 7.1 fasst sie in einem
+  Die Details zur Erfüllung der Anforderungen stehen nur hier; 8.1 fasst sie in einem
   Satz zusammen.
   Welche Anforderungen aus @tab:anforderungen erfüllt sind und welche nicht.
 ]

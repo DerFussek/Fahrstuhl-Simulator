@@ -38,18 +38,19 @@
 
 // Hauptteil: Richtwert 10-15 Seiten reiner Text
 #include "kapitel/01-einleitung.typ"
-#include "kapitel/02-grundlagen.typ"
-#include "kapitel/03-anforderungen.typ"
-#include "kapitel/04-loesungsentwurf.typ"
-#include "kapitel/05-umsetzung.typ"
-#include "kapitel/06-test.typ"
-#include "kapitel/07-zusammenfassung.typ"
+#include "kapitel/02-praxisphase.typ"
+#include "kapitel/03-grundlagen.typ"
+#include "kapitel/04-anforderungen.typ"
+#include "kapitel/05-loesungsentwurf.typ"
+#include "kapitel/06-umsetzung.typ"
+#include "kapitel/07-test.typ"
+#include "kapitel/08-zusammenfassung.typ"
 
 // Literaturverzeichnis wie im Muster ohne Kapitelnummer, Stil IEEE
 #kapitel-ohne-nummer[Literaturverzeichnis] <kap:literatur>
 #bibliography("literatur.bib", style: "ieee", title: none, full: false)
 
-#include "kapitel/08-ki-anmerkung.typ"
+#include "kapitel/09-ki-anmerkung.typ"
 
 #show: anhang
 #include "anhang/a-st-code.typ"
