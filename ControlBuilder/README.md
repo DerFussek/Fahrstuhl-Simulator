@@ -1,6 +1,6 @@
 # Fahrstuhl-Simulator: Structured Text (ABB Control Builder M)
 
-Abschrift des Projekts `Til_Projekt` (ABB University System, Control Builder M Professional) aus Screenshots vom 16.11.2026. Die C++-Vorlage liegt in `../main.cc` und `../main2.cc`.
+Abschrift des Projekts `Til_Projekt` (ABB University System, Control Builder M Professional) aus Screenshots vom 16.11.2026. Die C++-Vorlage liegt in [`../cpp-prototyp/`](../cpp-prototyp/) (aktueller Stand `main.cc`, frühere Fassungen in `versionen/`).
 
 ## Projektstruktur (aus dem Projektbaum)
 

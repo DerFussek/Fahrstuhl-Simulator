@@ -1,0 +1,12 @@
+# Lokale Arbeitsordner von Claude Code (Worktrees usw.) gehoeren nicht ins Repo
+.claude/
+
+# Build-Ergebnisse von MSVC / g++
+*.exe
+*.ilk
+*.obj
+*.o
+*.pdb
+
+# Vom Szenarientest erzeugtes Protokoll (die eingecheckte Fassung liegt in cpp-prototyp/tests/ergebnisse/)
+cpp-prototyp/tests/szenarien_log.txt
