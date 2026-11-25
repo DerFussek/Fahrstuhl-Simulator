@@ -16,7 +16,7 @@ winget install --id Typst.Typst
 Oder in VS Code die Erweiterung **Tinymist Typst** installieren (Vorschau beim Tippen).
 
 Dann **aus dem Repo-Wurzelordner** kompilieren. `--root .` ist nötig, weil der
-Anhang den Code aus `ControlBuilder/` und `main.cc` direkt einliest:
+Anhang den Code aus `ControlBuilder/` und `cpp-prototyp/` direkt einliest:
 
 ```bash
 typst watch --root . Praxisbericht/main.typ
