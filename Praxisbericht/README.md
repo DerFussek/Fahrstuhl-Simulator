@@ -31,7 +31,7 @@ Das PDF landet als `Praxisbericht/main.pdf`.
 | `main.typ` | Titelblatt-Daten, Reihenfolge der Kapitel; `zeige-entwurf: false` blendet alle Platzhalter aus |
 | `vorlage.typ` | Format des T1000-Musterberichts: Arial 12 pt, 1,5-zeilig, Blocksatz, Kopfzeile mit Name und Art, Titelblatt mit Logos, Nummern „1.1.“, Beschriftungen „Abbildung 1: …“, Code mit Zeilennummern |
 | `vorspann/` | Sperrvermerk, Erklärung (KI-Zusatz), Überblick der Tätigkeiten, Abkürzungen, Vorwort; Kurzzusammenfassung (im Muster nicht vorgesehen, in `main.typ` auskommentiert) |
-| `kapitel/` | Kapitel 1–7 (Kapitel 7 mit Reflexion wie im Muster), dazu die KI-Anmerkung ohne Kapitelnummer |
+| `kapitel/` | Kapitel 1–8 (Kapitel 2 Einstieg in die Praxisphase, Kapitel 8 mit Reflexion wie im Muster), dazu die KI-Anmerkung ohne Kapitelnummer |
 | `anhang/` | A: ST-Code, B: C++-Prototyp und Testprogramm, C: Testprotokolle, D: Skizzen aus der Entwurfsphase |
 | `literatur.bib` | Quellen (BibTeX), im Text mit `@schluessel` zitieren |
 | `bilder/` | Screenshots, Abbildungen und die Logos für das Titelblatt (`logo-abb.png`, `logo-dhbw-mannheim.png`) |

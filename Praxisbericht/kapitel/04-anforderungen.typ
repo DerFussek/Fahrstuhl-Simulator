@@ -5,15 +5,12 @@
 // Loesungsbewertung und Umsetzung; dieses Kapitel deckt die ersten beiden ab.
 = Anforderungsdefinition und -analyse <kap:anforderungen>
 
-== Vorgehen bei der Anforderungsermittlung
-#todo[
-  Die Aufgabe war offen gestellt; die ersten drei bis vier Tage dienten dazu, die
-  Anforderungen festzulegen: Anlage am Whiteboard skizziert, Regeln der
-  Rufabarbeitung gesammelt, Abläufe als Diagramme gezeichnet (Fotos in @anh:skizzen).
-]
+Die Anforderungen legte die Gruppe in der ersten Projektwoche selbst fest, da die Aufgabe offen gestellt war (@kap:vorgehen). Skizzen aus dieser Phase enthält @anh:skizzen.
 
-== Aufbau des simulierten Aufzugs
+== Aufbau des simulierten Aufzugs <kap:aufbau>
 #todo[
+  Einzige Stelle, an der Sensoren, Aktoren und Bedienelemente aufgezählt werden;
+  6.1 und 6.5 verweisen hierher.
   Schacht mit sechs Stockwerken, Kabine, Kabinentür und sechs Schachttüren,
   Endlagen und Lichtschranke, Außentaster auf/ab mit Beleuchtung, Bedienfeld in
   der Kabine. Alles nur simuliert, keine echte Hardware.
@@ -48,8 +45,10 @@
   caption: [Anforderungen an die Aufzugssteuerung],
 ) <tab:anforderungen>
 
-== Analyse der Anforderungen
+== Analyse der Anforderungen <kap:analyse>
 #todo[
+  Nur die projektspezifischen Regeln; das Richtungsprinzip allgemein steht in
+  @kap:sammelsteuerung.
   - Regeln der Rufabarbeitung hinter A3: Mitnahme in Fahrtrichtung, keine Mitnahme
     in Gegenrichtung, Richtung wird bis zum Umkehrpunkt zu Ende gefahren, der
     Zeitpunkt des Tastendrucks entscheidet über die Reihenfolge

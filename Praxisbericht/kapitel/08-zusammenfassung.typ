@@ -7,11 +7,13 @@
 == Zusammenfassung
 #todo[
   Ergebnis: Steuerung läuft in der Simulation, Anforderungen aus
-  @tab:anforderungen erfüllt.
+  @tab:anforderungen erfüllt. Nur ein bis zwei Sätze, die Details stehen in
+  @kap:bewertung.
 ]
 
 == Reflexion <kap:reflexion>
 #todo[
+  Bewerten statt nacherzählen: Der Ablauf steht schon in @kap:vorgehen.
   Was die Aufgabe gezeigt hat und was du daraus mitnimmst, zum Beispiel:
   kleine Untergruppen statt Diskussion zu sechst, Prototyp in einer vertrauten
   Sprache, gegenseitiges Testen, Übertragung nach Structured Text erst mit
@@ -21,7 +23,8 @@
 
 == Ausblick
 #todo[
-  Nicht umgesetzt und mögliche Erweiterungen: Trendbilder, Alarme und Events,
+  Anknüpfen an das in @kap:analyse bewusst Ausgeklammerte. Nicht umgesetzt und
+  mögliche Erweiterungen: Trendbilder, Alarme und Events,
   Sonderbetrieb (Brand, Störung, Not-Halt), Kartenleser, Test auf echter Hardware,
   mehrere Aufzüge.
 ]
